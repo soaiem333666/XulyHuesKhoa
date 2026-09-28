@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Hệ Thống Xử Lý Hues - Bộ Phận Xử Lý HUE-S Phường An Cựu</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -36,13 +36,14 @@
         body {
             font-family: 'Inter', sans-serif;
             background-color: #f8fafc;
+            -webkit-tap-highlight-color: transparent;
         }
         .gradient-header {
             background: linear-gradient(135deg, #00377a 0%, #004ca3 50%, #0062cc 100%);
         }
         .custom-scrollbar::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
+            width: 5px;
+            height: 5px;
         }
         .custom-scrollbar::-webkit-scrollbar-track {
             background: #f1f5f9;
@@ -51,13 +52,9 @@
             background: #cbd5e1;
             border-radius: 4px;
         }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8;
-        }
         .table-row-hover:hover {
             background-color: #f1f5f9;
         }
-        /* Warning Glow Effects */
         .urgent-row {
             background-color: #fef2f2 !important;
         }
@@ -76,55 +73,60 @@
 <body class="h-screen flex flex-col overflow-hidden text-slate-800">
 
     <!-- HEADER BANNER -->
-    <header class="gradient-header text-white shadow-xl z-20 flex-none border-b border-blue-300/30">
-        <div class="px-4 py-2 flex flex-wrap items-center justify-between gap-3">
+    <header class="gradient-header text-white shadow-xl z-30 flex-none border-b border-blue-300/30">
+        <div class="px-3 py-2 flex items-center justify-between gap-2">
             
-            <!-- Left Branding & Logo -->
-            <div class="flex items-center space-x-3">
-                <!-- An Cựu Custom Logo -->
-                <div class="relative group">
+            <!-- Left Branding & Mobile Toggle -->
+            <div class="flex items-center space-x-2 md:space-x-3">
+                <!-- Mobile Menu Button -->
+                <button onclick="toggleSidebar()" class="lg:hidden p-2 rounded-lg bg-white/10 text-white hover:bg-white/20 focus:outline-none">
+                    <i class="fa-solid fa-bars text-lg"></i>
+                </button>
+
+                <!-- Logo -->
+                <div class="relative group flex-none">
                     <img src="https://lh3.googleusercontent.com/d/1X3q7Xo5J0L8n8Y7n6q9-9Z-9Z9Z9Z9Z9=w200" 
-                         alt="Logo Trung Tâm DVSNC Phường An Cựu" 
-                         onerror="this.onerror=null; this.src='https://placehold.co/100x100/004ca3/ffffff?text=HUE-S+AN+C%E1%BB%ACU';"
-                         class="w-12 h-12 md:w-14 md:h-14 rounded-full border-2 border-yellow-400 object-cover shadow-lg bg-white p-0.5 transition transform group-hover:scale-105" />
+                         alt="Logo Phường An Cựu" 
+                         onerror="this.onerror=null; this.src='https://placehold.co/100x100/004ca3/ffffff?text=HUE-S';"
+                         class="w-10 h-10 md:w-12 md:h-12 rounded-full border-2 border-yellow-400 object-cover shadow-lg bg-white p-0.5" />
                 </div>
                 
                 <div>
-                    <h1 class="text-base md:text-xl font-black tracking-wide uppercase flex items-center gap-2">
-                        HỆ THỐNG XỬ LÝ <span class="bg-yellow-400 text-blue-950 text-xs md:text-sm px-2.5 py-0.5 rounded-md font-black shadow-sm tracking-normal">HUES</span>
+                    <h1 class="text-sm md:text-lg font-black tracking-wide uppercase flex items-center gap-1.5">
+                        HỆ THỐNG XỬ LÝ <span class="bg-yellow-400 text-blue-950 text-[10px] md:text-xs px-2 py-0.5 rounded font-black shadow-sm tracking-normal">HUES</span>
                     </h1>
-                    <p class="text-xs text-yellow-200 font-bold tracking-wide flex items-center gap-1.5">
+                    <p class="text-[10px] md:text-xs text-yellow-200 font-bold tracking-wide flex items-center gap-1">
                         <i class="fa-solid fa-building-flag"></i>
-                        <span>TRUNG TÂM DVSNC PHƯỜNG AN CỰU - NHÓM XỬ LÝ HUE-S</span>
+                        <span class="truncate">TRUNG TÂM DVSNC PHƯỜNG AN CỰU</span>
                     </p>
                 </div>
             </div>
 
-            <!-- Middle Actions & Zalo Quick Link -->
-            <div class="flex items-center space-x-3 text-xs md:text-sm">
+            <!-- Middle Quick Zalo Link -->
+            <div class="hidden sm:flex items-center space-x-3 text-xs">
                 <a href="https://zalo.me/0562242242" target="_blank" rel="noopener noreferrer" 
-                   class="bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-bold px-3.5 py-2 rounded-xl shadow-md transition transform active:scale-95 flex items-center gap-2 border border-emerald-300/40">
+                   class="bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-bold px-3 py-1.5 rounded-xl shadow-md transition transform active:scale-95 flex items-center gap-2 border border-emerald-300/40">
                     <i class="fa-solid fa-paper-plane text-yellow-200 text-sm"></i>
-                    <span>Xử lý ngay (Zalo 0562242242)</span>
+                    <span>Zalo Xử Lý (0562242242)</span>
                 </a>
             </div>
 
-            <!-- Right User Info & Author Badge -->
-            <div class="flex items-center space-x-3 text-xs">
-                <div id="authorNavInfo" class="bg-blue-950/60 backdrop-blur-md px-3 py-1.5 rounded-xl border border-white/20 text-blue-100 flex items-center gap-2 shadow-inner">
-                    <span id="displayUserName" class="font-bold text-white flex items-center gap-1">
-                        <i class="fa-solid fa-user-check text-emerald-400"></i> Cán bộ: Trần Anh Khoa
+            <!-- Right User Info -->
+            <div class="flex items-center space-x-2 text-xs">
+                <div id="authorNavInfo" class="bg-blue-950/60 backdrop-blur-md px-2.5 py-1.5 rounded-xl border border-white/20 text-blue-100 flex items-center gap-2 shadow-inner">
+                    <span id="displayUserName" class="font-bold text-white flex items-center gap-1 text-[11px] md:text-xs">
+                        <i class="fa-solid fa-user-shield text-emerald-400"></i>
+                        <span class="hidden md:inline">Quản lý hệ thống:</span> Trần Anh Khoa
                     </span>
-                    <span class="text-blue-300">|</span>
-                    <span class="text-yellow-300 font-bold"><i class="fa-solid fa-code text-[10px] mr-1"></i>Tác giả: Trần Anh Khoa 2026</span>
-                    <span class="text-blue-300">|</span>
-                    <button onclick="handleLogoutOrExit()" class="hover:text-red-300 transition font-semibold text-white">Thoát</button>
+                    <span class="text-blue-300 hidden md:inline">|</span>
+                    <button onclick="handleLogoutOrExit()" class="hover:text-red-300 transition font-semibold text-white ml-1 md:ml-0">
+                        <i class="fa-solid fa-right-from-bracket md:hidden"></i>
+                        <span class="hidden md:inline">Thoát</span>
+                    </button>
                 </div>
 
-                <!-- Auth Action Button -->
-                <div id="authArea">
-                    <button onclick="openLoginModal()" 
-                            class="bg-white/10 hover:bg-white/20 text-white font-medium px-3 py-1.5 rounded-lg transition border border-white/20 flex items-center gap-1.5">
+                <div id="authArea" class="hidden md:block">
+                    <button onclick="openLoginModal()" class="bg-white/10 hover:bg-white/20 text-white font-medium px-2.5 py-1.5 rounded-lg transition border border-white/20 flex items-center gap-1.5 text-xs">
                         <i class="fa-solid fa-right-to-bracket"></i>
                         <span>Đăng nhập</span>
                     </button>
@@ -134,69 +136,51 @@
     </header>
 
     <!-- MAIN WORKSPACE -->
-    <div class="flex flex-1 overflow-hidden">
+    <div class="flex flex-1 overflow-hidden relative">
         
+        <!-- SIDEBAR BACKDROP (For Mobile) -->
+        <div id="sidebarBackdrop" onclick="toggleSidebar()" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-30 hidden lg:hidden"></div>
+
         <!-- SIDEBAR -->
-        <aside class="w-64 bg-white border-r border-slate-200 flex flex-col flex-none hidden lg:flex shadow-sm">
+        <aside id="sidebar" class="fixed lg:static inset-y-0 left-0 w-64 bg-white border-r border-slate-200 flex flex-col z-40 transition-transform transform -translate-x-full lg:translate-x-0 shadow-lg lg:shadow-none">
             <div class="p-3 border-b border-slate-100 bg-slate-50 flex items-center justify-between">
                 <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Danh Mục Phản Ánh</span>
                 <span class="bg-blue-100 text-blue-800 text-[10px] px-2 py-0.5 rounded-full font-black">Phường An Cựu</span>
             </div>
             
-            <nav class="p-2 space-y-1 overflow-y-auto custom-scrollbar flex-1">
-                <a href="#" class="nav-item active flex items-center justify-between px-3 py-2.5 rounded-lg text-xs font-bold bg-blue-50 text-hues-700 border border-blue-200 shadow-sm">
+            <nav class="p-2 space-y-1 overflow-y-auto custom-scrollbar flex-1 text-xs">
+                <button onclick="switchCategory('all')" id="nav-all" class="w-full nav-item active flex items-center justify-between px-3 py-2.5 rounded-lg font-bold bg-blue-50 text-hues-700 border border-blue-200 shadow-sm text-left">
                     <div class="flex items-center gap-2.5">
                         <i class="fa-solid fa-list-check text-hues-600"></i>
                         <span>Phản ánh hiện trường</span>
                     </div>
-                    <span class="bg-red-500 text-white text-[10px] px-2 py-0.5 rounded-full font-extrabold shadow-sm">14 mới</span>
-                </a>
+                    <span id="totalBadgeCount" class="bg-blue-600 text-white text-[10px] px-2 py-0.5 rounded-full font-extrabold">14</span>
+                </button>
 
-                <a href="#" class="nav-item flex items-center justify-between px-3 py-2.5 rounded-lg text-xs font-medium text-slate-600 hover:bg-slate-100 transition">
+                <button onclick="switchCategory('urgent')" id="nav-urgent" class="w-full nav-item flex items-center justify-between px-3 py-2.5 rounded-lg font-medium text-slate-600 hover:bg-slate-100 transition text-left">
                     <div class="flex items-center gap-2.5">
                         <i class="fa-solid fa-triangle-exclamation text-red-500"></i>
                         <span class="font-bold text-red-600">Đến hạn / Quá hạn</span>
                     </div>
                     <span id="urgentBadgeCount" class="bg-red-600 text-white text-[10px] px-2 py-0.5 rounded-full font-black animate-pulse">0</span>
-                </a>
+                </button>
 
-                <a href="#" class="nav-item flex items-center justify-between px-3 py-2.5 rounded-lg text-xs font-medium text-slate-600 hover:bg-slate-100 transition">
+                <!-- NEW CATEGORY: PHẢN ÁNH ĐƠN VỊ KHÁC -->
+                <button onclick="switchCategory('other_unit')" id="nav-other_unit" class="w-full nav-item flex items-center justify-between px-3 py-2.5 rounded-lg font-medium text-slate-600 hover:bg-slate-100 transition text-left">
                     <div class="flex items-center gap-2.5">
-                        <i class="fa-solid fa-comments text-amber-500"></i>
-                        <span>Phản ánh có tương tác</span>
+                        <i class="fa-solid fa-share-from-square text-purple-600"></i>
+                        <span class="font-bold text-purple-700">Phản ánh đơn vị khác</span>
                     </div>
-                    <span class="bg-slate-100 text-slate-600 text-[10px] px-2 py-0.5 rounded-full font-semibold">195/2186</span>
-                </a>
+                    <span id="otherUnitBadgeCount" class="bg-purple-100 text-purple-700 border border-purple-200 text-[10px] px-2 py-0.5 rounded-full font-bold">0</span>
+                </button>
 
-                <a href="#" class="nav-item flex items-center justify-between px-3 py-2.5 rounded-lg text-xs font-medium text-slate-600 hover:bg-slate-100 transition">
+                <button onclick="switchCategory('completed')" id="nav-completed" class="w-full nav-item flex items-center justify-between px-3 py-2.5 rounded-lg font-medium text-slate-600 hover:bg-slate-100 transition text-left">
                     <div class="flex items-center gap-2.5">
-                        <i class="fa-solid fa-arrows-rotate text-indigo-500"></i>
-                        <span>Phản ánh có trao đổi</span>
+                        <i class="fa-solid fa-circle-check text-emerald-500"></i>
+                        <span>Đã hoàn thành</span>
                     </div>
-                    <span class="bg-slate-100 text-slate-600 text-[10px] px-2 py-0.5 rounded-full font-semibold">48/543</span>
-                </a>
-
-                <a href="#" class="nav-item flex items-center justify-between px-3 py-2.5 rounded-lg text-xs font-medium text-slate-600 hover:bg-slate-100 transition">
-                    <div class="flex items-center gap-2.5">
-                        <i class="fa-solid fa-bell text-emerald-500"></i>
-                        <span>Thông tin theo dõi</span>
-                    </div>
-                    <span class="bg-slate-100 text-slate-600 text-[10px] px-2 py-0.5 rounded-full font-semibold">115/115</span>
-                </a>
-
-                <a href="#" class="nav-item flex items-center justify-between px-3 py-2.5 rounded-lg text-xs font-medium text-slate-600 hover:bg-slate-100 transition">
-                    <div class="flex items-center gap-2.5">
-                        <i class="fa-solid fa-right-left text-purple-500"></i>
-                        <span>Chuyển đơn vị mới</span>
-                    </div>
-                </a>
-
-                <a href="#" class="nav-item flex items-center justify-between px-3 py-2.5 rounded-lg text-xs font-medium text-slate-600 hover:bg-slate-100 transition">
-                    <div class="flex items-center gap-2.5">
-                        <i class="fa-solid fa-chart-column text-rose-500"></i>
-                        <span>Thống kê xử lý</span>
-                    </div>
-                </a>
+                    <span id="completedBadgeCount" class="bg-slate-100 text-slate-600 text-[10px] px-2 py-0.5 rounded-full font-semibold">0</span>
+                </button>
             </nav>
 
             <!-- Quick Zalo Box -->
@@ -205,7 +189,7 @@
                     <i class="fa-solid fa-headset text-hues-600"></i>
                     <span>Trực Tiếp Nhận Hồ Sơ</span>
                 </div>
-                <p class="text-[11px] text-slate-500 mb-2">Liên hệ cán bộ xử lý trực tiếp qua Zalo:</p>
+                <p class="text-[11px] text-slate-500 mb-2">Liên hệ quản lý trực tiếp qua Zalo:</p>
                 <a href="https://zalo.me/0562242242" target="_blank" 
                    class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-1.5 px-2 rounded-lg text-center block text-xs shadow-sm transition">
                     <i class="fa-solid fa-phone mr-1"></i> Zalo: 0562242242
@@ -217,7 +201,7 @@
         <main class="flex-1 flex flex-col min-w-0 bg-slate-50 overflow-hidden">
             
             <!-- Filter Bar -->
-            <div class="bg-white p-3 border-b border-slate-200 shadow-sm flex-none">
+            <div class="bg-white p-2.5 md:p-3 border-b border-slate-200 shadow-sm flex-none">
                 <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2">
                     <div>
                         <label class="block text-[10px] font-bold text-slate-500 uppercase mb-0.5">Từ ngày</label>
@@ -239,22 +223,23 @@
                     </div>
 
                     <div>
-                        <label class="block text-[10px] font-bold text-slate-500 uppercase mb-0.5">Trạng thái / Cảnh báo</label>
+                        <label class="block text-[10px] font-bold text-slate-500 uppercase mb-0.5">Lọc Trạng Thái</label>
                         <select id="filterStatus" onchange="renderTable()" class="w-full text-xs border border-slate-300 rounded px-2 py-1 focus:ring-1 focus:ring-hues-500 focus:outline-none bg-white font-medium">
-                            <option value="all">Tất cả trạng thái</option>
-                            <option value="urgent">🚨 CẢNH BÁO: Đến hạn / Quá hạn</option>
+                            <option value="all">Tất cả danh sách</option>
+                            <option value="urgent">🚨 Đến hạn / Quá hạn</option>
                             <option value="Đang xử lý">Đang xử lý</option>
                             <option value="Hoàn thành">Hoàn thành</option>
+                            <option value="other_unit">➡️ Đã chuyển đơn vị khác</option>
                         </select>
                     </div>
 
-                    <div>
+                    <div class="col-span-2 sm:col-span-1">
                         <label class="block text-[10px] font-bold text-slate-500 uppercase mb-0.5">Từ khóa</label>
                         <input type="text" id="filterKeyword" onkeyup="renderTable()" placeholder="Nhập mã hoặc nội dung..." class="w-full text-xs border border-slate-300 rounded px-2 py-1 focus:ring-1 focus:ring-hues-500 focus:outline-none">
                     </div>
 
-                    <div class="flex items-end">
-                        <button onclick="renderTable()" class="w-full bg-hues-600 hover:bg-hues-700 text-white text-xs font-bold py-1 px-3 rounded shadow-sm transition flex items-center justify-center gap-1.5 h-[28px]">
+                    <div class="col-span-2 sm:col-span-1 flex items-end">
+                        <button onclick="renderTable()" class="w-full bg-hues-600 hover:bg-hues-700 text-white text-xs font-bold py-1.5 px-3 rounded shadow-sm transition flex items-center justify-center gap-1.5">
                             <i class="fa-solid fa-magnifying-glass"></i>
                             <span>Tìm kiếm</span>
                         </button>
@@ -262,10 +247,12 @@
                 </div>
             </div>
 
-            <!-- Table Data Area -->
-            <div class="flex-1 overflow-auto p-3 custom-scrollbar">
+            <!-- Table / Mobile Cards Area -->
+            <div class="flex-1 overflow-auto p-2 md:p-3 custom-scrollbar">
                 <div class="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden">
-                    <div class="overflow-x-auto">
+                    
+                    <!-- Desktop Table View (Hidden on Small Screens) -->
+                    <div class="hidden md:block overflow-x-auto">
                         <table class="w-full text-left border-collapse text-xs">
                             <thead>
                                 <tr class="bg-blue-50/90 text-slate-700 border-b border-blue-100 font-bold uppercase tracking-wider text-[11px]">
@@ -274,17 +261,22 @@
                                     <th class="py-2.5 px-3">Thời gian gửi</th>
                                     <th class="py-2.5 px-3">Tiêu đề nội dung phản ánh</th>
                                     <th class="py-2.5 px-3 text-center">Hạn xử lý (Từ - Đến)</th>
-                                    <th class="py-2.5 px-3 text-center">Hình thức</th>
-                                    <th class="py-2.5 px-3 text-center">Trạng thái / Hạn định</th>
+                                    <th class="py-2.5 px-3 text-center">Trạng thái / Đơn vị</th>
                                     <th class="py-2.5 px-3 text-center">Bản đồ</th>
-                                    <th class="py-2.5 px-3 text-center">Thao tác</th>
+                                    <th class="py-2.5 px-3 text-center min-w-[170px]">Thao tác xử lý</th>
                                 </tr>
                             </thead>
                             <tbody id="reflectTableBody" class="divide-y divide-slate-100">
-                                <!-- Dynamic Render via JavaScript -->
+                                <!-- Dynamic Render -->
                             </tbody>
                         </table>
                     </div>
+
+                    <!-- Mobile Card View (Shown on Mobile Screens) -->
+                    <div id="reflectMobileBody" class="block md:hidden divide-y divide-slate-200">
+                        <!-- Dynamic Render Mobile Cards -->
+                    </div>
+
                 </div>
             </div>
 
@@ -292,18 +284,18 @@
     </div>
 
     <!-- FOOTER -->
-    <footer class="bg-hues-900 text-white text-center py-2.5 text-xs font-medium shadow-inner flex-none border-t border-hues-700 flex flex-wrap justify-between px-4 items-center">
+    <footer class="bg-hues-900 text-white text-center py-2 text-xs font-medium shadow-inner flex-none border-t border-hues-700 flex flex-wrap justify-between px-3 items-center">
         <div class="flex items-center gap-2">
-            <span class="font-bold text-yellow-400">TRUNG TÂM DVSNC PHƯỜNG AN CỰU</span>
-            <span>- Bộ Phận Xử Lý HUE-S (TP. Huế)</span>
+            <span class="font-bold text-yellow-400">PHƯỜNG AN CỰU</span>
+            <span class="hidden sm:inline">- Bộ Phận Xử Lý HUE-S (TP. Huế)</span>
         </div>
-        <div class="text-yellow-300 font-extrabold flex items-center gap-1.5">
+        <div class="text-yellow-300 font-extrabold flex items-center gap-1.5 text-[11px]">
             <i class="fa-solid fa-shield-halved text-emerald-400"></i>
-            <span>Tác giả: Trần Anh Khoa 2026</span>
+            <span>Quản lý hệ thống: Trần Anh Khoa 2026</span>
         </div>
     </footer>
 
-    <!-- MODAL 1: LOGIN -->
+    <!-- MODAL: LOGIN -->
     <div id="loginModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
         <div class="bg-white rounded-2xl shadow-2xl max-w-sm w-full p-6 border border-slate-100 relative">
             <button onclick="closeLoginModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600">
@@ -313,7 +305,7 @@
                 <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-2 text-hues-600">
                     <i class="fa-solid fa-user-shield text-2xl"></i>
                 </div>
-                <h3 class="text-base font-bold text-slate-800 uppercase tracking-wide">Đăng Nhập Cán Bộ Xử Lý</h3>
+                <h3 class="text-base font-bold text-slate-800 uppercase tracking-wide">Đăng Nhập Quản Lý</h3>
                 <p class="text-xs text-slate-500 mt-0.5">Nhóm xử lý HUE-S Phường An Cựu</p>
             </div>
 
@@ -340,27 +332,23 @@
                     Đăng nhập hệ thống
                 </button>
             </form>
-
-            <div class="mt-4 pt-3 border-t border-slate-100 text-center text-[11px] text-slate-400">
-                <span>Tài khoản: <strong class="text-slate-700">kh1809oa</strong> | Mật khẩu: <strong class="text-slate-700">18092002</strong></span>
-            </div>
         </div>
     </div>
 
-    <!-- MODAL 2: EDIT / EDIT REFLECTION INFO -->
-    <div id="editModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
-        <div class="bg-white rounded-2xl shadow-2xl max-w-xl w-full p-6 border border-slate-100 relative max-h-[90vh] flex flex-col">
+    <!-- MODAL: EDIT & TRANSFER -->
+    <div id="editModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center hidden p-3 md:p-4">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-xl w-full p-4 md:p-6 border border-slate-100 relative max-h-[95vh] flex flex-col">
             <div class="flex items-center justify-between pb-3 border-b border-slate-200">
-                <h3 class="text-sm font-extrabold text-slate-800 flex items-center gap-2 uppercase">
+                <h3 class="text-xs md:text-sm font-extrabold text-slate-800 flex items-center gap-2 uppercase">
                     <i class="fa-solid fa-pen-to-square text-hues-600"></i>
-                    <span>Sửa & Cập Nhật Thông Tin Phản Ánh</span>
+                    <span>Xử Lý / Chuyển Đơn Vị Phản Ánh</span>
                 </h3>
-                <button onclick="closeEditModal()" class="text-slate-400 hover:text-slate-600">
+                <button onclick="closeEditModal()" class="text-slate-400 hover:text-slate-600 p-1">
                     <i class="fa-solid fa-xmark text-lg"></i>
                 </button>
             </div>
 
-            <div class="py-4 overflow-y-auto space-y-3 custom-scrollbar flex-1 text-xs">
+            <div class="py-3 md:py-4 overflow-y-auto space-y-3 custom-scrollbar flex-1 text-xs">
                 <!-- Info Display -->
                 <div class="bg-blue-50/80 p-3 rounded-lg border border-blue-100 space-y-1">
                     <div class="flex justify-between items-center">
@@ -375,9 +363,9 @@
                 </div>
 
                 <div>
-                    <label class="block font-bold text-slate-700 mb-1">Nhập thêm thông tin / Nội dung kết quả xử lý:</label>
-                    <textarea id="editProcessContent" rows="4" 
-                              placeholder="Cán bộ Trần Anh Khoa nhập chi tiết phương án xử lý, kết quả giải quyết phản ánh..."
+                    <label class="block font-bold text-slate-700 mb-1">Nội dung xử lý / Ghi chú chuyển đơn vị:</label>
+                    <textarea id="editProcessContent" rows="3" 
+                              placeholder="Quản lý hệ thống Trần Anh Khoa nhập nội dung phương án xử lý hoặc lý do chuyển đơn vị khác..."
                               class="w-full p-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-hues-500 focus:outline-none text-xs"></textarea>
                 </div>
 
@@ -387,36 +375,30 @@
                         <select id="editStatus" class="w-full p-2 border border-slate-300 rounded-lg focus:ring-1 focus:ring-hues-500 focus:outline-none font-bold text-slate-800">
                             <option value="Đang xử lý">Đang xử lý</option>
                             <option value="Hoàn thành">Hoàn thành</option>
+                            <option value="Chuyển đơn vị khác">Chuyển đơn vị khác</option>
                         </select>
                     </div>
                     <div>
-                        <label class="block font-bold text-slate-700 mb-1">Cán bộ phụ trách xử lý</label>
-                        <input type="text" id="editOfficer" value="Trần Anh Khoa (Phường An Cựu)" readonly class="w-full p-2 border border-slate-200 bg-slate-100 rounded-lg text-slate-700 font-bold">
-                    </div>
-                </div>
-
-                <div>
-                    <label class="block font-bold text-slate-700 mb-1">Đính kèm hình ảnh / Hồ sơ minh chứng</label>
-                    <div class="border-2 border-dashed border-slate-300 rounded-lg p-3 text-center hover:bg-slate-50 transition cursor-pointer">
-                        <i class="fa-solid fa-cloud-arrow-up text-xl text-slate-400 mb-1"></i>
-                        <p class="text-slate-500 text-[11px]">Bấm để tải ảnh minh chứng hoàn thành công việc</p>
+                        <label class="block font-bold text-slate-700 mb-1">Quản lý phụ trách</label>
+                        <input type="text" id="editOfficer" value="Trần Anh Khoa (Quản lý)" readonly class="w-full p-2 border border-slate-200 bg-slate-100 rounded-lg text-slate-700 font-bold">
                     </div>
                 </div>
             </div>
 
             <!-- Footer Buttons -->
-            <div class="pt-3 border-t border-slate-200 flex items-center justify-between gap-2">
-                <a href="https://zalo.me/0562242242" target="_blank" class="text-emerald-600 hover:text-emerald-700 font-bold text-xs flex items-center gap-1">
-                    <i class="fa-solid fa-paper-plane"></i> Gửi kết quả qua Zalo (0562242242)
-                </a>
-                <div class="flex items-center gap-2">
-                    <button onclick="closeEditModal()" class="px-3.5 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold">
+            <div class="pt-3 border-t border-slate-200 flex flex-wrap items-center justify-between gap-2">
+                <button onclick="transferToOtherUnit(selectedId)" class="w-full sm:w-auto px-3 py-1.5 rounded-lg bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold flex items-center justify-center gap-1.5 shadow transition">
+                    <i class="fa-solid fa-share-from-square"></i>
+                    <span>Chuyển đơn vị khác</span>
+                </button>
+
+                <div class="flex items-center gap-2 w-full sm:w-auto justify-end">
+                    <button onclick="closeEditModal()" class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold">
                         Đóng
                     </button>
-                    <!-- Finish / Save Button -->
-                    <button onclick="saveEditInfo()" class="px-4 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold flex items-center gap-1.5 shadow-md transition transform active:scale-95">
+                    <button onclick="saveEditInfo()" class="px-4 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold flex items-center gap-1.5 shadow-md transition">
                         <i class="fa-solid fa-circle-check text-sm"></i>
-                        <span>Hoàn thành</span>
+                        <span>Lưu & Hoàn thành</span>
                     </button>
                 </div>
             </div>
@@ -425,32 +407,59 @@
 
     <!-- LOGIC & STATE SCRIPT -->
     <script>
-        // Current System Date benchmark (28/09/2026 as shown in screenshot)
-        const SYSTEM_CURRENT_DATE = new Date(2026, 8, 28); // Month is 0-indexed (8 = Sep)
+        const SYSTEM_CURRENT_DATE = new Date(2026, 8, 28);
 
-        // Exact Data extracted from screenshot with exact date ranges
         let reflectionsList = [
-            { id: '270926070', time: '27/09/2026 15:55', title: 'Kiến nghị nâng cấp đường Nhất Đông', dateRange: '27/09/2026 - 07/10/2026', endDate: '07/10/2026', type: 'Phản ánh', status: 'Đang xử lý', map: false, notes: '' },
-            { id: '270926013', time: '27/09/2026 08:13', title: 'Làm mái che lấn chiếm tại 22 Nguyễn Khánh Toàn (lần 6)', dateRange: '28/09/2026 - 07/10/2026', endDate: '07/10/2026', type: 'Phản ánh', status: 'Đang xử lý', map: false, notes: '' },
-            { id: '250926073', time: '25/09/2026 13:43', title: 'Nuôi gà gây ô nhiễm tại 3/35/135 Đặng Văn Ngữ', dateRange: '25/09/2026 - 06/10/2026', endDate: '06/10/2026', type: 'Phản ánh', status: 'Đang xử lý', map: false, notes: '' },
-            { id: '240926068', time: '24/09/2026 15:57', title: 'Kiến nghị thu gom cành cây và dại hạ tại 33 Nguyễn Khoa Chiêm', dateRange: '24/09/2026 - 05/10/2026', endDate: '05/10/2026', type: 'Phản ánh', status: 'Đang xử lý', map: false, notes: '' },
-            { id: '240926060', time: '24/09/2026 15:11', title: 'Hỏi về thời gian nhận tiền hỗ trợ miễn giảm học phí tại trường Mầm non Thảo Nguyên Xanh', dateRange: '24/09/2026 - 05/10/2026', endDate: '05/10/2026', type: 'Hỏi đáp', status: 'Đang xử lý', map: true, notes: '' },
-            { id: '230926028', time: '23/09/2026 09:34', title: 'Làm mái hiên chiếm đường đi tại cuối kiệt 121 đường Tôn Quang Phiệt', dateRange: '23/09/2026 - 02/10/2026', endDate: '02/10/2026', type: 'Phản ánh', status: 'Đang xử lý', map: false, notes: '' },
-            { id: '200926036', time: '20/09/2026 12:16', title: 'Lấn chiếm đất công và vỉa hè dựng nhà trái phép tại 1/42 Nguyễn Khánh Toàn (lần 2)', dateRange: '20/09/2026 - 30/09/2026', endDate: '30/09/2026', type: 'Phản ánh', status: 'Đang xử lý', map: false, notes: '' },
-            { id: '170926086', time: '17/09/2026 18:57', title: 'Buôn bán lấn chiếm lề đường tại 36 đường Nguyễn Khánh Toàn', dateRange: '17/09/2026 - 28/09/2026', endDate: '28/09/2026', type: 'Phản ánh', status: 'Đang xử lý', map: true, notes: '' },
-            { id: '170926044', time: '17/09/2026 14:14', title: 'Tự ý chôn mốc, rào quanh trụ điện tại nhà 1H kiệt 56 Duy Tân', dateRange: '17/09/2026 - 28/09/2026', endDate: '28/09/2026', type: 'Phản ánh', status: 'Đang xử lý', map: true, notes: '' },
-            { id: '170926037', time: '17/09/2026 12:59', title: 'Kiểm tra cơi nới lấn chiếm đất tại nhà 29 kiệt 8 đường Tôn Thất Cảnh', dateRange: '18/09/2026 - 29/09/2026', endDate: '29/09/2026', type: 'Phản ánh', status: 'Đang xử lý', map: false, notes: '' },
-            { id: '100926126', time: '10/09/2026 20:23', title: 'Kiến nghị làm rõ khoản thu "Hoạt động Sao đội" và "Quỹ nhà trường"', dateRange: '10/09/2026 - 21/09/2026', endDate: '21/09/2026', type: 'Phản ánh', status: 'Đang xử lý', map: false, notes: '' },
-            { id: '090926082', time: '09/09/2026 15:22', title: 'Xe máy bks 75H124800 bỏ hoàng tại đường luồng phía sau cửa hàng ô tô điện lô OSH 3-2 đường Võ Nguyên Giáp', dateRange: '09/09/2026 - 18/09/2026', endDate: '18/09/2026', type: 'Phản ánh', status: 'Đang xử lý', map: true, notes: '' },
-            { id: '080926078', time: '08/09/2026 17:07', title: 'Kiến nghị kiểm tra tiến độ chi trả trợ cấp người cao tuổi', dateRange: '08/09/2026 - 17/09/2026', endDate: '17/09/2026', type: 'Phản ánh', status: 'Đang xử lý', map: false, notes: '' },
-            { id: '270826056', time: '27/08/2026 15:36', title: 'Chưa hoàn trả mặt bằng tại 38 Trần Anh Liên (lần 2)', dateRange: '11/09/2026 - 22/09/2026', endDate: '22/09/2026', type: 'Phản ánh', status: 'Đang xử lý', map: false, notes: '' }
+            { id: '270926070', time: '27/09/2026 15:55', title: 'Kiến nghị nâng cấp đường Nhất Đông', dateRange: '27/09/2026 - 07/10/2026', endDate: '07/10/2026', type: 'Phản ánh', status: 'Đang xử lý', map: false, notes: '', isOtherUnit: false },
+            { id: '270926013', time: '27/09/2026 08:13', title: 'Làm mái che lấn chiếm tại 22 Nguyễn Khánh Toàn (lần 6)', dateRange: '28/09/2026 - 07/10/2026', endDate: '07/10/2026', type: 'Phản ánh', status: 'Đang xử lý', map: false, notes: '', isOtherUnit: false },
+            { id: '250926073', time: '25/09/2026 13:43', title: 'Nuôi gà gây ô nhiễm tại 3/35/135 Đặng Văn Ngữ', dateRange: '25/09/2026 - 06/10/2026', endDate: '06/10/2026', type: 'Phản ánh', status: 'Đang xử lý', map: false, notes: '', isOtherUnit: false },
+            { id: '240926068', time: '24/09/2026 15:57', title: 'Kiến nghị thu gom cành cây và dại hạ tại 33 Nguyễn Khoa Chiêm', dateRange: '24/09/2026 - 05/10/2026', endDate: '05/10/2026', type: 'Phản ánh', status: 'Đang xử lý', map: false, notes: '', isOtherUnit: false },
+            { id: '240926060', time: '24/09/2026 15:11', title: 'Hỏi về thời gian nhận tiền hỗ trợ miễn giảm học phí tại trường Mầm non Thảo Nguyên Xanh', dateRange: '24/09/2026 - 05/10/2026', endDate: '05/10/2026', type: 'Hỏi đáp', status: 'Đang xử lý', map: true, notes: '', isOtherUnit: false },
+            { id: '230926028', time: '23/09/2026 09:34', title: 'Làm mái hiên chiếm đường đi tại cuối kiệt 121 đường Tôn Quang Phiệt', dateRange: '23/09/2026 - 02/10/2026', endDate: '02/10/2026', type: 'Phản ánh', status: 'Đang xử lý', map: false, notes: '', isOtherUnit: false },
+            { id: '200926036', time: '20/09/2026 12:16', title: 'Lấn chiếm đất công và vỉa hè dựng nhà trái phép tại 1/42 Nguyễn Khánh Toàn (lần 2)', dateRange: '20/09/2026 - 30/09/2026', endDate: '30/09/2026', type: 'Phản ánh', status: 'Đang xử lý', map: false, notes: '', isOtherUnit: false },
+            { id: '170926086', time: '17/09/2026 18:57', title: 'Buôn bán lấn chiếm lề đường tại 36 đường Nguyễn Khánh Toàn', dateRange: '17/09/2026 - 28/09/2026', endDate: '28/09/2026', type: 'Phản ánh', status: 'Đang xử lý', map: true, notes: '', isOtherUnit: false },
+            { id: '170926044', time: '17/09/2026 14:14', title: 'Tự ý chôn mốc, rào quanh trụ điện tại nhà 1H kiệt 56 Duy Tân', dateRange: '17/09/2026 - 28/09/2026', endDate: '28/09/2026', type: 'Phản ánh', status: 'Đang xử lý', map: true, notes: '', isOtherUnit: false },
+            { id: '170926037', time: '17/09/2026 12:59', title: 'Kiểm tra cơi nới lấn chiếm đất tại nhà 29 kiệt 8 đường Tôn Thất Cảnh', dateRange: '18/09/2026 - 29/09/2026', endDate: '29/09/2026', type: 'Phản ánh', status: 'Đang xử lý', map: false, notes: '', isOtherUnit: false },
+            { id: '100926126', time: '10/09/2026 20:23', title: 'Kiến nghị làm rõ khoản thu "Hoạt động Sao đội" và "Quỹ nhà trường"', dateRange: '10/09/2026 - 21/09/2026', endDate: '21/09/2026', type: 'Phản ánh', status: 'Đang xử lý', map: false, notes: '', isOtherUnit: false },
+            { id: '090926082', time: '09/09/2026 15:22', title: 'Xe máy bks 75H124800 bỏ hoàng tại đường luồng phía sau cửa hàng ô tô điện lô OSH 3-2 đường Võ Nguyên Giáp', dateRange: '09/09/2026 - 18/09/2026', endDate: '18/09/2026', type: 'Phản ánh', status: 'Đang xử lý', map: true, notes: '', isOtherUnit: false },
+            { id: '080926078', time: '08/09/2026 17:07', title: 'Kiến nghị kiểm tra tiến độ chi trả trợ cấp người cao tuổi', dateRange: '08/09/2026 - 17/09/2026', endDate: '17/09/2026', type: 'Phản ánh', status: 'Đang xử lý', map: false, notes: '', isOtherUnit: false },
+            { id: '270826056', time: '27/08/2026 15:36', title: 'Chưa hoàn trả mặt bằng tại 38 Trần Anh Liên (lần 2)', dateRange: '11/09/2026 - 22/09/2026', endDate: '22/09/2026', type: 'Phản ánh', status: 'Đang xử lý', map: false, notes: '', isOtherUnit: false }
         ];
 
         let currentUser = { username: 'kh1809oa', name: 'Trần Anh Khoa' };
         let selectedId = null;
+        let currentCatFilter = 'all';
 
-        // Helper: Check if record is due/overdue
-        function checkDeadlineStatus(endDateStr, status) {
+        // Toggle Sidebar Mobile
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const backdrop = document.getElementById('sidebarBackdrop');
+            sidebar.classList.toggle('-translate-x-full');
+            backdrop.classList.toggle('hidden');
+        }
+
+        // Switch Category from Sidebar
+        function switchCategory(cat) {
+            currentCatFilter = cat;
+            document.querySelectorAll('.nav-item').forEach(el => {
+                el.classList.remove('active', 'bg-blue-50', 'text-hues-700', 'border', 'border-blue-200', 'shadow-sm');
+                el.classList.add('text-slate-600');
+            });
+            
+            const activeNav = document.getElementById(`nav-${cat}`);
+            if (activeNav) {
+                activeNav.classList.add('active', 'bg-blue-50', 'text-hues-700', 'border', 'border-blue-200', 'shadow-sm');
+            }
+
+            // Sync with Filter dropdown
+            document.getElementById('filterStatus').value = cat === 'urgent' ? 'urgent' : (cat === 'other_unit' ? 'other_unit' : (cat === 'completed' ? 'Hoàn thành' : 'all'));
+            
+            renderTable();
+            if (window.innerWidth < 1024) toggleSidebar();
+        }
+
+        function checkDeadlineStatus(endDateStr, status, isOtherUnit) {
+            if (isOtherUnit) return { isUrgent: false, type: 'other', text: 'Chuyển đơn vị khác' };
             if (status === 'Hoàn thành') return { isUrgent: false, type: 'completed', text: 'Hoàn thành' };
 
             const parts = endDateStr.split('/');
@@ -460,82 +469,86 @@
             const diffDays = Math.ceil((endDate - SYSTEM_CURRENT_DATE) / (1000 * 60 * 60 * 24));
 
             if (diffDays < 0) {
-                return { isUrgent: true, type: 'overdue', text: `QUÁ HẠN (${Math.abs(diffDays)} ngày)` };
+                return { isUrgent: true, type: 'overdue', text: `QUÁ HẠN (${Math.abs(diffDays)}d)` };
             } else if (diffDays <= 2) {
-                return { isUrgent: true, type: 'due-soon', text: diffDays === 0 ? 'ĐẾN HẠN HÔM NAY' : `ĐẾN HẠN (${diffDays} ngày)` };
+                return { isUrgent: true, type: 'due-soon', text: diffDays === 0 ? 'ĐẾN HẠN HÔM NAY' : `ĐẾN HẠN (${diffDays}d)` };
             }
 
             return { isUrgent: false, type: 'normal', text: 'Còn hạn' };
         }
 
-        // Render Data Table
+        // Render Data Table & Mobile View
         function renderTable() {
             const tbody = document.getElementById('reflectTableBody');
+            const mobileBody = document.getElementById('reflectMobileBody');
             const keyword = document.getElementById('filterKeyword').value.toLowerCase();
             const statusVal = document.getElementById('filterStatus').value;
 
             tbody.innerHTML = '';
+            mobileBody.innerHTML = '';
+
             let urgentCount = 0;
+            let otherUnitCount = 0;
+            let completedCount = 0;
+
+            reflectionsList.forEach(item => {
+                const deadline = checkDeadlineStatus(item.endDate, item.status, item.isOtherUnit);
+                if (deadline.isUrgent) urgentCount++;
+                if (item.isOtherUnit) otherUnitCount++;
+                if (item.status === 'Hoàn thành' && !item.isOtherUnit) completedCount++;
+            });
+
+            document.getElementById('totalBadgeCount').innerText = reflectionsList.length;
+            document.getElementById('urgentBadgeCount').innerText = urgentCount;
+            document.getElementById('otherUnitBadgeCount').innerText = otherUnitCount;
+            document.getElementById('completedBadgeCount').innerText = completedCount;
 
             const filteredList = reflectionsList.filter(item => {
-                const deadline = checkDeadlineStatus(item.endDate, item.status);
-                if (deadline.isUrgent) urgentCount++;
-
+                const deadline = checkDeadlineStatus(item.endDate, item.status, item.isOtherUnit);
                 const matchKeyword = item.id.toLowerCase().includes(keyword) || item.title.toLowerCase().includes(keyword);
                 
                 let matchStatus = true;
-                if (statusVal === 'urgent') matchStatus = deadline.isUrgent;
-                else if (statusVal !== 'all') matchStatus = item.status === statusVal;
+                if (statusVal === 'urgent') matchStatus = deadline.isUrgent && !item.isOtherUnit;
+                else if (statusVal === 'other_unit') matchStatus = item.isOtherUnit;
+                else if (statusVal === 'Hoàn thành') matchStatus = item.status === 'Hoàn thành' && !item.isOtherUnit;
+                else if (statusVal === 'Đang xử lý') matchStatus = item.status === 'Đang xử lý' && !item.isOtherUnit;
 
                 return matchKeyword && matchStatus;
             });
 
-            // Update urgent count badge in sidebar
-            document.getElementById('urgentBadgeCount').innerText = urgentCount;
-
             if (filteredList.length === 0) {
-                tbody.innerHTML = `
-                    <tr>
-                        <td colspan="9" class="text-center py-8 text-slate-400">
-                            <i class="fa-regular fa-folder-open text-3xl mb-1 block"></i>
-                            Không tìm thấy phản ánh nào phù hợp.
-                        </td>
-                    </tr>
-                `;
+                const emptyHtml = `<div class="text-center py-8 text-slate-400 text-xs">
+                    <i class="fa-regular fa-folder-open text-3xl mb-1 block"></i>
+                    Không có phản ánh nào phù hợp.
+                </div>`;
+                tbody.innerHTML = `<tr><td colspan="8">${emptyHtml}</td></tr>`;
+                mobileBody.innerHTML = emptyHtml;
                 return;
             }
 
             filteredList.forEach((item, index) => {
-                const deadline = checkDeadlineStatus(item.endDate, item.status);
-                const isDone = item.status === 'Hoàn thành';
+                const deadline = checkDeadlineStatus(item.endDate, item.status, item.isOtherUnit);
+                const isDone = item.status === 'Hoàn thành' && !item.isOtherUnit;
 
                 let statusBadgeHtml = '';
                 let rowBgClass = 'table-row-hover';
 
-                if (isDone) {
+                if (item.isOtherUnit) {
+                    statusBadgeHtml = `<span class="bg-purple-100 text-purple-800 border border-purple-200 px-2 py-0.5 rounded-full font-bold text-[10px]"><i class="fa-solid fa-share-from-square"></i> Đơn vị khác</span>`;
+                } else if (isDone) {
                     statusBadgeHtml = `<span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full font-bold text-[10px]"><i class="fa-solid fa-check-double"></i> Hoàn thành</span>`;
                 } else if (deadline.isUrgent) {
                     rowBgClass = 'urgent-row border-l-4 border-l-red-600';
                     statusBadgeHtml = `
-                        <div class="flex flex-col items-center gap-0.5">
-                            <span class="bg-red-600 text-white font-extrabold px-2 py-0.5 rounded shadow-sm text-[10px] animate-pulse-red flex items-center gap-1">
-                                <i class="fa-solid fa-triangle-exclamation"></i> ${deadline.text}
-                            </span>
-                            <span class="text-[9px] text-red-600 font-bold uppercase">Cần xử lý ngay</span>
-                        </div>
+                        <span class="bg-red-600 text-white font-extrabold px-2 py-0.5 rounded shadow-sm text-[10px] animate-pulse-red inline-flex items-center gap-1">
+                            <i class="fa-solid fa-triangle-exclamation"></i> ${deadline.text}
+                        </span>
                     `;
                 } else {
                     statusBadgeHtml = `<span class="bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full font-bold text-[10px]"><i class="fa-solid fa-spinner animate-spin"></i> Đang xử lý</span>`;
                 }
 
-                const actionBtn = `<button onclick="openEditModal('${item.id}')" class="bg-hues-600 hover:bg-hues-700 text-white font-bold text-[11px] px-2.5 py-1 rounded shadow-sm transition flex items-center gap-1 mx-auto">
-                        <i class="fa-solid fa-pen-to-square"></i> Sửa / Nhập
-                       </button>`;
-
-                const mapHtml = item.map 
-                    ? `<a href="https://maps.google.com" target="_blank" class="text-red-500 hover:text-red-700 font-bold"><i class="fa-solid fa-location-dot text-sm"></i></a>`
-                    : `<span class="text-slate-300">-</span>`;
-
+                // Render Desktop Row
                 const tr = document.createElement('tr');
                 tr.className = `${rowBgClass} transition border-b border-slate-100 text-xs`;
                 tr.innerHTML = `
@@ -544,61 +557,69 @@
                     <td class="py-2.5 px-3 text-slate-500 whitespace-nowrap">${item.time}</td>
                     <td class="py-2.5 px-3 font-semibold text-slate-800">
                         ${item.title}
-                        ${item.notes ? `<div class="text-[11px] text-blue-700 mt-1 font-normal bg-blue-50/80 p-1 rounded border border-blue-100"><i class="fa-solid fa-comment-dots text-hues-600"></i> <b>Cán bộ Trần Anh Khoa:</b> ${item.notes}</div>` : ''}
+                        ${item.notes ? `<div class="text-[11px] text-blue-700 mt-1 font-normal bg-blue-50/80 p-1 rounded border border-blue-100"><i class="fa-solid fa-user-shield text-hues-600"></i> <b>Quản lý Trần Anh Khoa:</b> ${item.notes}</div>` : ''}
                     </td>
                     <td class="py-2.5 px-3 text-center text-slate-600 font-medium whitespace-nowrap text-[11px]">${item.dateRange}</td>
-                    <td class="py-2.5 px-3 text-center text-slate-600 font-medium">${item.type}</td>
                     <td class="py-2.5 px-3 text-center">${statusBadgeHtml}</td>
-                    <td class="py-2.5 px-3 text-center">${mapHtml}</td>
-                    <td class="py-2.5 px-3 text-center">${actionBtn}</td>
+                    <td class="py-2.5 px-3 text-center">${item.map ? '<i class="fa-solid fa-location-dot text-red-500 text-sm"></i>' : '-'}</td>
+                    <td class="py-2.5 px-3 text-center">
+                        <div class="flex items-center justify-center gap-1">
+                            <button onclick="openEditModal('${item.id}')" class="bg-hues-600 hover:bg-hues-700 text-white font-bold text-[11px] px-2 py-1 rounded shadow-sm transition flex items-center gap-1">
+                                <i class="fa-solid fa-pen-to-square"></i> Sửa
+                            </button>
+                            ${!item.isOtherUnit ? `
+                            <button onclick="transferToOtherUnit('${item.id}')" title="Chuyển đơn vị khác" class="bg-purple-600 hover:bg-purple-700 text-white font-bold text-[11px] px-2 py-1 rounded shadow-sm transition flex items-center gap-1">
+                                <i class="fa-solid fa-share"></i> Chuyển
+                            </button>` : ''}
+                        </div>
+                    </td>
                 `;
                 tbody.appendChild(tr);
+
+                // Render Mobile Card View
+                const card = document.createElement('div');
+                card.className = `p-3 ${rowBgClass} space-y-2 text-xs`;
+                card.innerHTML = `
+                    <div class="flex items-center justify-between">
+                        <span class="font-black text-hues-700 text-sm">#${item.id}</span>
+                        <div>${statusBadgeHtml}</div>
+                    </div>
+                    <div class="font-bold text-slate-800 text-xs">${item.title}</div>
+                    <div class="text-[11px] text-slate-500 flex justify-between items-center">
+                        <span><i class="fa-regular fa-clock mr-1"></i>${item.time}</span>
+                        <span><i class="fa-regular fa-calendar-check mr-1"></i>${item.endDate}</span>
+                    </div>
+                    ${item.notes ? `<div class="text-[11px] text-blue-700 bg-blue-50 p-1.5 rounded border border-blue-100"><i class="fa-solid fa-user-shield"></i> <b>Quản lý Trần Anh Khoa:</b> ${item.notes}</div>` : ''}
+                    <div class="pt-2 border-t border-slate-100 flex items-center justify-end gap-2">
+                        ${!item.isOtherUnit ? `
+                        <button onclick="transferToOtherUnit('${item.id}')" class="bg-purple-600 text-white font-bold text-[11px] px-3 py-1 rounded shadow-sm flex items-center gap-1">
+                            <i class="fa-solid fa-share"></i> Chuyển Đơn Vị Khác
+                        </button>` : ''}
+                        <button onclick="openEditModal('${item.id}')" class="bg-hues-600 text-white font-bold text-[11px] px-3 py-1 rounded shadow-sm flex items-center gap-1">
+                            <i class="fa-solid fa-pen-to-square"></i> Cập Nhật
+                        </button>
+                    </div>
+                `;
+                mobileBody.appendChild(card);
             });
         }
 
-        // Login & Modal Handlers
-        function openLoginModal() {
-            document.getElementById('loginModal').classList.remove('hidden');
-            document.getElementById('loginError').classList.add('hidden');
-        }
+        // Action: Transfer Reflection to Other Unit
+        function transferToOtherUnit(id) {
+            const record = reflectionsList.find(r => r.id === id);
+            if (!record) return;
 
-        function closeLoginModal() {
-            document.getElementById('loginModal').classList.add('hidden');
-        }
-
-        function handleLogin(e) {
-            e.preventDefault();
-            const u = document.getElementById('loginUser').value.trim();
-            const p = document.getElementById('loginPass').value.trim();
-
-            if (u === 'kh1809oa' && p === '18092002') {
-                currentUser = { username: 'kh1809oa', name: 'Trần Anh Khoa' };
-                closeLoginModal();
-                updateAuthUI();
+            if (confirm(`Xác nhận chuyển phản ánh #${id} sang mục của ĐƠN VỊ KHÁC do không thuộc bộ phận xử lý?`)) {
+                record.isOtherUnit = true;
+                record.notes = (record.notes ? record.notes + ' | ' : '') + 'Đã chuyển đơn vị khác xử lý theo thẩm quyền.';
                 renderTable();
-            } else {
-                document.getElementById('loginError').classList.remove('hidden');
+                if (!document.getElementById('editModal').classList.contains('hidden')) {
+                    closeEditModal();
+                }
             }
         }
 
-        function handleLogoutOrExit() {
-            if (currentUser) {
-                alert("Đã hoàn tất phiên làm việc của cán bộ Trần Anh Khoa.");
-            }
-        }
-
-        function updateAuthUI() {
-            const authArea = document.getElementById('authArea');
-            if (currentUser) {
-                authArea.innerHTML = `
-                    <span class="bg-emerald-500 text-white font-extrabold px-2.5 py-1 rounded-lg text-xs shadow-sm flex items-center gap-1 border border-emerald-400">
-                        <i class="fa-solid fa-user-check"></i> kh1809oa
-                    </span>
-                `;
-            }
-        }
-
-        // Edit Modal Methods
+        // Edit Modal Handlers
         function openEditModal(id) {
             selectedId = id;
             const record = reflectionsList.find(r => r.id === id);
@@ -606,16 +627,16 @@
 
             document.getElementById('editCode').innerText = record.id;
             document.getElementById('editTitle').innerText = record.title;
-            document.getElementById('editStatus').value = record.status;
+            document.getElementById('editStatus').value = record.isOtherUnit ? 'Chuyển đơn vị khác' : record.status;
             document.getElementById('editProcessContent').value = record.notes || '';
 
-            const deadline = checkDeadlineStatus(record.endDate, record.status);
+            const deadline = checkDeadlineStatus(record.endDate, record.status, record.isOtherUnit);
             const badgeBox = document.getElementById('editDeadlineBadge');
             
             if (deadline.isUrgent) {
                 badgeBox.innerHTML = `
                     <div class="bg-red-100 border border-red-300 text-red-800 p-2 rounded-lg text-xs font-bold flex items-center justify-between">
-                        <span><i class="fa-solid fa-triangle-exclamation text-red-600 mr-1"></i> CẢNH BÁO MỨC ĐỘ ƯU TIÊN:</span>
+                        <span><i class="fa-solid fa-triangle-exclamation text-red-600 mr-1"></i> ƯU TIÊN CẦN XỬ LÝ:</span>
                         <span class="bg-red-600 text-white px-2 py-0.5 rounded text-[10px] animate-pulse">${deadline.text}</span>
                     </div>
                 `;
@@ -638,7 +659,13 @@
 
             const record = reflectionsList.find(r => r.id === selectedId);
             if (record) {
-                record.status = document.getElementById('editStatus').value;
+                const statusVal = document.getElementById('editStatus').value;
+                if (statusVal === 'Chuyển đơn vị khác') {
+                    record.isOtherUnit = true;
+                } else {
+                    record.status = statusVal;
+                    record.isOtherUnit = false;
+                }
                 record.notes = document.getElementById('editProcessContent').value;
 
                 renderTable();
@@ -646,8 +673,33 @@
             }
         }
 
+        // Login Handlers
+        function openLoginModal() {
+            document.getElementById('loginModal').classList.remove('hidden');
+        }
+
+        function closeLoginModal() {
+            document.getElementById('loginModal').classList.add('hidden');
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const u = document.getElementById('loginUser').value.trim();
+            const p = document.getElementById('loginPass').value.trim();
+
+            if (u === 'kh1809oa' && p === '18092002') {
+                closeLoginModal();
+                alert("Đăng nhập thành công với quyền Quản lý hệ thống: Trần Anh Khoa");
+            } else {
+                document.getElementById('loginError').classList.remove('hidden');
+            }
+        }
+
+        function handleLogoutOrExit() {
+            alert("Đã hoàn tất phiên làm việc của Quản lý hệ thống: Trần Anh Khoa.");
+        }
+
         window.onload = function() {
-            updateAuthUI();
             renderTable();
         };
     </script>
