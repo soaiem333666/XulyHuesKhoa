@@ -100,33 +100,33 @@
                 </div>
             </div>
 
-            <!-- Middle Quick Zalo Link -->
-            <div class="hidden sm:flex items-center space-x-3 text-xs">
+            <!-- Middle Quick Actions -->
+            <div class="hidden sm:flex items-center space-x-2 text-xs">
+                <button onclick="openAddModal()" class="bg-yellow-400 hover:bg-yellow-500 text-blue-950 font-black px-3 py-1.5 rounded-xl shadow-md transition transform active:scale-95 flex items-center gap-1.5">
+                    <i class="fa-solid fa-circle-plus text-sm"></i>
+                    <span>TẠO PHẢN ÁNH MỚI</span>
+                </button>
                 <a href="https://zalo.me/0562242242" target="_blank" rel="noopener noreferrer" 
                    class="bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-bold px-3 py-1.5 rounded-xl shadow-md transition transform active:scale-95 flex items-center gap-2 border border-emerald-300/40">
                     <i class="fa-solid fa-paper-plane text-yellow-200 text-sm"></i>
-                    <span>Zalo Xử Lý (0562242242)</span>
+                    <span>Zalo (0562242242)</span>
                 </a>
             </div>
 
             <!-- Right User Info -->
             <div class="flex items-center space-x-2 text-xs">
+                <button onclick="openAddModal()" class="sm:hidden bg-yellow-400 text-blue-950 font-black p-2 rounded-lg text-xs flex items-center justify-center">
+                    <i class="fa-solid fa-plus text-sm"></i>
+                </button>
                 <div id="authorNavInfo" class="bg-blue-950/60 backdrop-blur-md px-2.5 py-1.5 rounded-xl border border-white/20 text-blue-100 flex items-center gap-2 shadow-inner">
                     <span id="displayUserName" class="font-bold text-white flex items-center gap-1 text-[11px] md:text-xs">
                         <i class="fa-solid fa-user-shield text-emerald-400"></i>
-                        <span class="hidden md:inline">Quản lý hệ thống:</span> Trần Anh Khoa
+                        <span class="hidden md:inline">Quản lý:</span> Trần Anh Khoa
                     </span>
                     <span class="text-blue-300 hidden md:inline">|</span>
                     <button onclick="handleLogoutOrExit()" class="hover:text-red-300 transition font-semibold text-white ml-1 md:ml-0">
                         <i class="fa-solid fa-right-from-bracket md:hidden"></i>
                         <span class="hidden md:inline">Thoát</span>
-                    </button>
-                </div>
-
-                <div id="authArea" class="hidden md:block">
-                    <button onclick="openLoginModal()" class="bg-white/10 hover:bg-white/20 text-white font-medium px-2.5 py-1.5 rounded-lg transition border border-white/20 flex items-center gap-1.5 text-xs">
-                        <i class="fa-solid fa-right-to-bracket"></i>
-                        <span>Đăng nhập</span>
                     </button>
                 </div>
             </div>
@@ -143,7 +143,7 @@
         <aside id="sidebar" class="fixed lg:static inset-y-0 left-0 w-64 bg-white border-r border-slate-200 flex flex-col z-40 transition-transform transform -translate-x-full lg:translate-x-0 shadow-lg lg:shadow-none">
             <div class="p-3 border-b border-slate-100 bg-slate-50 flex items-center justify-between">
                 <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Danh Mục Phản Ánh</span>
-                <span class="bg-blue-100 text-blue-800 text-[10px] px-2 py-0.5 rounded-full font-black">Phường An Cựu</span>
+                <span class="bg-blue-100 text-blue-800 text-[10px] px-2 py-0.5 rounded-full font-black">An Cựu</span>
             </div>
             
             <nav class="p-2 space-y-1 overflow-y-auto custom-scrollbar flex-1 text-xs">
@@ -153,7 +153,7 @@
                         <i class="fa-solid fa-list-check text-hues-600"></i>
                         <span>Phản ánh của bộ phận</span>
                     </div>
-                    <span id="activeBadgeCount" class="bg-blue-600 text-white text-[10px] px-2 py-0.5 rounded-full font-extrabold">14</span>
+                    <span id="activeBadgeCount" class="bg-blue-600 text-white text-[10px] px-2 py-0.5 rounded-full font-extrabold">0</span>
                 </button>
 
                 <!-- ĐẾN HẠN / QUÁ HẠN -->
@@ -184,13 +184,20 @@
                 </button>
             </nav>
 
+            <div class="p-2 border-t border-slate-100">
+                <button onclick="openAddModal()" class="w-full bg-yellow-400 hover:bg-yellow-500 text-blue-950 font-black py-2 rounded-lg shadow transition text-xs flex items-center justify-center gap-1.5">
+                    <i class="fa-solid fa-plus-circle"></i>
+                    <span>THÊM PHẢN ÁNH MỚI</span>
+                </button>
+            </div>
+
             <!-- Quick Zalo Box -->
             <div class="p-3 border-t border-slate-200 bg-gradient-to-br from-slate-50 to-blue-50 text-xs text-slate-600">
                 <div class="flex items-center gap-1.5 font-bold text-slate-800 mb-1">
                     <i class="fa-solid fa-headset text-hues-600"></i>
                     <span>Trực Tiếp Nhận Hồ Sơ</span>
                 </div>
-                <p class="text-[11px] text-slate-500 mb-2">Liên hệ quản lý trực tiếp qua Zalo:</p>
+                <p class="text-[11px] text-slate-500 mb-2">Liên hệ Zalo:</p>
                 <a href="https://zalo.me/0562242242" target="_blank" 
                    class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-1.5 px-2 rounded-lg text-center block text-xs shadow-sm transition">
                     <i class="fa-solid fa-phone mr-1"></i> Zalo: 0562242242
@@ -235,7 +242,7 @@
 
                     <div class="col-span-2 sm:col-span-1">
                         <label class="block text-[10px] font-bold text-slate-500 uppercase mb-0.5">Từ khóa</label>
-                        <input type="text" id="filterKeyword" onkeyup="renderTable()" placeholder="Nhập mã hoặc nội dung..." class="w-full text-xs border border-slate-300 rounded px-2 py-1 focus:ring-1 focus:ring-hues-500 focus:outline-none">
+                        <input type="text" id="filterKeyword" onkeyup="renderTable()" placeholder="Mã, tên hoặc nội dung..." class="w-full text-xs border border-slate-300 rounded px-2 py-1 focus:ring-1 focus:ring-hues-500 focus:outline-none">
                     </div>
 
                     <div class="col-span-2 sm:col-span-1 flex items-end">
@@ -267,13 +274,12 @@
                             <thead>
                                 <tr class="bg-blue-50/90 text-slate-700 border-b border-blue-100 font-bold uppercase tracking-wider text-[11px]">
                                     <th class="py-2.5 px-2 text-center w-10">STT</th>
-                                    <th class="py-2.5 px-3">Mã phản ánh</th>
+                                    <th class="py-2.5 px-3">Mã & Ảnh</th>
                                     <th class="py-2.5 px-3">Thời gian</th>
-                                    <th class="py-2.5 px-3">Nội dung phản ánh</th>
+                                    <th class="py-2.5 px-3">Tên & Nội dung phản ánh</th>
                                     <th class="py-2.5 px-3 text-center">Hạn xử lý</th>
                                     <th class="py-2.5 px-3 text-center">Trạng thái</th>
-                                    <th class="py-2.5 px-3 text-center">Bản đồ</th>
-                                    <th class="py-2.5 px-3 text-center min-w-[160px]">Thao tác</th>
+                                    <th class="py-2.5 px-3 text-center min-w-[170px]">Thao tác</th>
                                 </tr>
                             </thead>
                             <tbody id="reflectTableBody" class="divide-y divide-slate-100">
@@ -297,7 +303,7 @@
     <footer class="bg-hues-900 text-white text-center py-2 text-xs font-medium shadow-inner flex-none border-t border-hues-700 flex flex-wrap justify-between px-3 items-center">
         <div class="flex items-center gap-2">
             <span class="font-bold text-yellow-400">PHƯỜNG AN CỰU</span>
-            <span class="hidden sm:inline">- Bộ Phận Xử Lý HUE-S (TP. Huế)</span>
+            <span class="hidden sm:inline">- Hệ Thống Xử Lý HUE-S</span>
         </div>
         <div class="text-yellow-300 font-extrabold flex items-center gap-1.5 text-[11px]">
             <i class="fa-solid fa-shield-halved text-emerald-400"></i>
@@ -305,7 +311,91 @@
         </div>
     </footer>
 
-    <!-- MODAL: EDIT & TRANSFER -->
+    <!-- MODAL 1: THÊM PHẢN ÁNH MỚI -->
+    <div id="addModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center hidden p-3 md:p-4">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-xl w-full p-4 md:p-6 border border-slate-100 relative max-h-[95vh] flex flex-col">
+            <div class="flex items-center justify-between pb-3 border-b border-slate-200">
+                <h3 class="text-xs md:text-sm font-extrabold text-blue-900 flex items-center gap-2 uppercase">
+                    <i class="fa-solid fa-circle-plus text-yellow-500 text-base"></i>
+                    <span>Thêm Phản Ánh Mới (Nhảy Lên Bộ Phận)</span>
+                </h3>
+                <button onclick="closeAddModal()" class="text-slate-400 hover:text-slate-600 p-1">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <form id="addReflectForm" onsubmit="saveNewReflection(event)" class="py-3 md:py-4 overflow-y-auto space-y-3 custom-scrollbar flex-1 text-xs">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">Mã phản ánh <span class="text-red-500">*</span></label>
+                        <input type="text" id="addCode" required placeholder="Ví dụ: 280926999" class="w-full p-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-hues-500 focus:outline-none font-bold text-hues-700">
+                    </div>
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">Thời gian gửi <span class="text-red-500">*</span></label>
+                        <input type="text" id="addTime" required class="w-full p-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-hues-500 focus:outline-none">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Tên phản ánh (Tiêu đề) <span class="text-red-500">*</span></label>
+                    <input type="text" id="addName" required placeholder="Nhập tên/tiêu đề phản ánh ngắn gọn..." class="w-full p-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-hues-500 focus:outline-none font-bold">
+                </div>
+
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Nội dung phản ánh chi tiết <span class="text-red-500">*</span></label>
+                    <textarea id="addContent" rows="3" required placeholder="Nhập nội dung chi tiết người dân phản ánh..." class="w-full p-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-hues-500 focus:outline-none"></textarea>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">Hạn xử lý (Đến ngày) <span class="text-red-500">*</span></label>
+                        <input type="date" id="addEndDate" required class="w-full p-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-hues-500 focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">Trạng thái ban đầu</label>
+                        <select id="addStatus" class="w-full p-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-hues-500 focus:outline-none font-bold">
+                            <option value="Đang xử lý">Đang xử lý</option>
+                            <option value="Hoàn thành">Hoàn thành</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- CHỖ TẢI / BỎ HÌNH ẢNH PHẢN ÁNH -->
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Hình ảnh phản ánh</label>
+                    <div class="border-2 border-dashed border-slate-300 rounded-xl p-3 bg-slate-50 text-center">
+                        <input type="file" id="addImageInput" accept="image/*" onchange="previewImage(event)" class="hidden">
+                        <div id="imagePreviewContainer" class="hidden relative inline-block">
+                            <img id="imagePreview" src="" alt="Xem trước ảnh" class="max-h-32 rounded-lg border shadow-sm mx-auto">
+                            <button type="button" onclick="removeSelectedImage()" class="absolute -top-2 -right-2 bg-red-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs shadow-md hover:bg-red-700">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
+                        </div>
+                        <div id="imageUploadBtn">
+                            <button type="button" onclick="document.getElementById('addImageInput').click()" class="bg-white border border-slate-300 hover:bg-slate-100 text-slate-700 px-3 py-1.5 rounded-lg font-bold text-xs shadow-sm transition inline-flex items-center gap-1.5">
+                                <i class="fa-solid fa-image text-hues-600"></i>
+                                <span>Tải ảnh phản ánh lên</span>
+                            </button>
+                            <p class="text-[10px] text-slate-400 mt-1">Hỗ trợ JPG, PNG, WEBP (Bấm nút X để bỏ hình ảnh)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer Buttons -->
+                <div class="pt-3 border-t border-slate-200 flex items-center justify-end gap-2">
+                    <button type="button" onclick="closeAddModal()" class="px-3.5 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold">
+                        Hủy
+                    </button>
+                    <button type="submit" class="px-5 py-2 rounded-lg bg-hues-600 hover:bg-hues-700 text-white font-extrabold flex items-center gap-1.5 shadow-md transition">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        <span>Lưu & Nhảy Lên Bộ Phận</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL 2: CẬP NHẬT / SỬA -->
     <div id="editModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center hidden p-3 md:p-4">
         <div class="bg-white rounded-2xl shadow-2xl max-w-xl w-full p-4 md:p-6 border border-slate-100 relative max-h-[95vh] flex flex-col">
             <div class="flex items-center justify-between pb-3 border-b border-slate-200">
@@ -326,16 +416,17 @@
                         <span id="editCode" class="font-black text-hues-700 text-sm">--</span>
                     </div>
                     <div>
-                        <span class="font-bold text-slate-500">Nội dung phản ánh:</span>
+                        <span class="font-bold text-slate-500">Tên / Nội dung phản ánh:</span>
                         <p id="editTitle" class="text-slate-800 font-semibold mt-0.5">--</p>
                     </div>
+                    <div id="editImageDisplay" class="pt-1"></div>
                     <div id="editDeadlineBadge" class="pt-1"></div>
                 </div>
 
                 <div>
                     <label class="block font-bold text-slate-700 mb-1">Nội dung giải trình / Lý do chuyển đơn vị khác:</label>
                     <textarea id="editProcessContent" rows="3" 
-                              placeholder="Quản lý hệ thống Trần Anh Khoa nhập nội dung giải quyết hoặc lý do không thuộc bộ phận..."
+                              placeholder="Quản lý hệ thống Trần Anh Khoa nhập nội dung giải quyết..."
                               class="w-full p-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-hues-500 focus:outline-none text-xs"></textarea>
                 </div>
 
@@ -345,7 +436,7 @@
                         <select id="editStatus" class="w-full p-2 border border-slate-300 rounded-lg focus:ring-1 focus:ring-hues-500 focus:outline-none font-bold text-slate-800">
                             <option value="Đang xử lý">Đang xử lý</option>
                             <option value="Hoàn thành">Hoàn thành</option>
-                            <option value="Chuyển đơn vị khác">Chuyển đơn vị khác (Nhảy mục)</option>
+                            <option value="Chuyển đơn vị khác">Chuyển đơn vị khác</option>
                         </select>
                     </div>
                     <div>
@@ -359,7 +450,7 @@
             <div class="pt-3 border-t border-slate-200 flex flex-wrap items-center justify-between gap-2">
                 <button onclick="executeTransferFromModal()" class="w-full sm:w-auto px-3.5 py-1.5 rounded-lg bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold flex items-center justify-center gap-1.5 shadow transition">
                     <i class="fa-solid fa-share-from-square"></i>
-                    <span>Nút nhanh: Nhảy sang Đơn vị khác</span>
+                    <span>Chuyển sang Đơn vị khác</span>
                 </button>
 
                 <div class="flex items-center gap-2 w-full sm:w-auto justify-end">
@@ -378,27 +469,19 @@
     <!-- LOGIC SCRIPT -->
     <script>
         const SYSTEM_CURRENT_DATE = new Date(2026, 8, 28);
+        let uploadedImageBase64 = null;
 
-        // Standard Dataset
+        // Dataset
         let reflectionsList = [
-            { id: '270926070', time: '27/09/2026 15:55', title: 'Kiến nghị nâng cấp đường Nhất Đông', dateRange: '27/09/2026 - 07/10/2026', endDate: '07/10/2026', type: 'Phản ánh', status: 'Đang xử lý', map: false, notes: '', isOtherUnit: false },
-            { id: '270926013', time: '27/09/2026 08:13', title: 'Làm mái che lấn chiếm tại 22 Nguyễn Khánh Toàn (lần 6)', dateRange: '28/09/2026 - 07/10/2026', endDate: '07/10/2026', type: 'Phản ánh', status: 'Đang xử lý', map: false, notes: '', isOtherUnit: false },
-            { id: '250926073', time: '25/09/2026 13:43', title: 'Nuôi gà gây ô nhiễm tại 3/35/135 Đặng Văn Ngữ', dateRange: '25/09/2026 - 06/10/2026', endDate: '06/10/2026', type: 'Phản ánh', status: 'Đang xử lý', map: false, notes: '', isOtherUnit: false },
-            { id: '240926068', time: '24/09/2026 15:57', title: 'Kiến nghị thu gom cành cây và dại hạ tại 33 Nguyễn Khoa Chiêm', dateRange: '24/09/2026 - 05/10/2026', endDate: '05/10/2026', type: 'Phản ánh', status: 'Đang xử lý', map: false, notes: '', isOtherUnit: false },
-            { id: '240926060', time: '24/09/2026 15:11', title: 'Hỏi về thời gian nhận tiền hỗ trợ miễn giảm học phí tại trường Mầm non Thảo Nguyên Xanh', dateRange: '24/09/2026 - 05/10/2026', endDate: '05/10/2026', type: 'Hỏi đáp', status: 'Đang xử lý', map: true, notes: '', isOtherUnit: false },
-            { id: '230926028', time: '23/09/2026 09:34', title: 'Làm mái hiên chiếm đường đi tại cuối kiệt 121 đường Tôn Quang Phiệt', dateRange: '23/09/2026 - 02/10/2026', endDate: '02/10/2026', type: 'Phản ánh', status: 'Đang xử lý', map: false, notes: '', isOtherUnit: false },
-            { id: '200926036', time: '20/09/2026 12:16', title: 'Lấn chiếm đất công và vỉa hè dựng nhà trái phép tại 1/42 Nguyễn Khánh Toàn (lần 2)', dateRange: '20/09/2026 - 30/09/2026', endDate: '30/09/2026', type: 'Phản ánh', status: 'Đang xử lý', map: false, notes: '', isOtherUnit: false },
-            { id: '170926086', time: '17/09/2026 18:57', title: 'Buôn bán lấn chiếm lề đường tại 36 đường Nguyễn Khánh Toàn', dateRange: '17/09/2026 - 28/09/2026', endDate: '28/09/2026', type: 'Phản ánh', status: 'Đang xử lý', map: true, notes: '', isOtherUnit: false },
-            { id: '170926044', time: '17/09/2026 14:14', title: 'Tự ý chôn mốc, rào quanh trụ điện tại nhà 1H kiệt 56 Duy Tân', dateRange: '17/09/2026 - 28/09/2026', endDate: '28/09/2026', type: 'Phản ánh', status: 'Đang xử lý', map: true, notes: '', isOtherUnit: false },
-            { id: '170926037', time: '17/09/2026 12:59', title: 'Kiểm tra cơi nới lấn chiếm đất tại nhà 29 kiệt 8 đường Tôn Thất Cảnh', dateRange: '18/09/2026 - 29/09/2026', endDate: '29/09/2026', type: 'Phản ánh', status: 'Đang xử lý', map: false, notes: '', isOtherUnit: false },
-            { id: '100926126', time: '10/09/2026 20:23', title: 'Kiến nghị làm rõ khoản thu "Hoạt động Sao đội" và "Quỹ nhà trường"', dateRange: '10/09/2026 - 21/09/2026', endDate: '21/09/2026', type: 'Phản ánh', status: 'Đang xử lý', map: false, notes: '', isOtherUnit: false },
-            { id: '090926082', time: '09/09/2026 15:22', title: 'Xe máy bks 75H124800 bỏ hoàng tại đường luồng phía sau cửa hàng ô tô điện lô OSH 3-2 đường Võ Nguyên Giáp', dateRange: '09/09/2026 - 18/09/2026', endDate: '18/09/2026', type: 'Phản ánh', status: 'Đang xử lý', map: true, notes: '', isOtherUnit: false },
-            { id: '080926078', time: '08/09/2026 17:07', title: 'Kiến nghị kiểm tra tiến độ chi trả trợ cấp người cao tuổi', dateRange: '08/09/2026 - 17/09/2026', endDate: '17/09/2026', type: 'Phản ánh', status: 'Đang xử lý', map: false, notes: '', isOtherUnit: false },
-            { id: '270826056', time: '27/08/2026 15:36', title: 'Chưa hoàn trả mặt bằng tại 38 Trần Anh Liên (lần 2)', dateRange: '11/09/2026 - 22/09/2026', endDate: '22/09/2026', type: 'Phản ánh', status: 'Đang xử lý', map: false, notes: '', isOtherUnit: false }
+            { id: '270926070', name: 'Kiến nghị nâng cấp đường Nhất Đông', time: '27/09/2026 15:55', content: 'Mặt đường hư hỏng nặng gây nguy hiểm giao thông.', dateRange: '27/09/2026 - 07/10/2026', endDate: '07/10/2026', status: 'Đang xử lý', image: '', notes: '', isOtherUnit: false },
+            { id: '270926013', name: 'Làm mái che lấn chiếm tại 22 Nguyễn Khánh Toàn', time: '27/09/2026 08:13', content: 'Hộ dân tự ý dựng mái tôn lấn vỉa hè lần 6.', dateRange: '28/09/2026 - 07/10/2026', endDate: '07/10/2026', status: 'Đang xử lý', image: '', notes: '', isOtherUnit: false },
+            { id: '250926073', name: 'Nuôi gà gây ô nhiễm tại 3/35/135 Đặng Văn Ngữ', time: '25/09/2026 13:43', content: 'Gây mùi hôi bốc lên ảnh hưởng các hộ xung quanh.', dateRange: '25/09/2026 - 06/10/2026', endDate: '06/10/2026', status: 'Đang xử lý', image: '', notes: '', isOtherUnit: false },
+            { id: '200926036', name: 'Lấn chiếm đất công tại 1/42 Nguyễn Khánh Toàn', time: '20/09/2026 12:16', content: 'Dựng nhà tạm trái phép trên đất công ích.', dateRange: '20/09/2026 - 30/09/2026', endDate: '30/09/2026', status: 'Đang xử lý', image: '', notes: '', isOtherUnit: false },
+            { id: '170926086', name: 'Buôn bán lấn chiếm lề đường tại 36 Nguyễn Khánh Toàn', time: '17/09/2026 18:57', content: 'Bày bàn ghế tràn ra lòng đường vào giờ cao điểm.', dateRange: '17/09/2026 - 28/09/2026', endDate: '28/09/2026', status: 'Đang xử lý', image: '', notes: '', isOtherUnit: false }
         ];
 
         let selectedId = null;
-        let currentCategory = 'active'; // 'active', 'urgent', 'other_unit', 'completed'
+        let currentCategory = 'active';
 
         function toggleSidebar() {
             document.getElementById('sidebar').classList.toggle('-translate-x-full');
@@ -409,7 +492,6 @@
         function switchCategory(catKey) {
             currentCategory = catKey;
             
-            // Update Sidebar UI
             document.querySelectorAll('.nav-item').forEach(el => {
                 el.classList.remove('active', 'bg-blue-50', 'text-hues-700', 'border', 'border-blue-200', 'shadow-sm');
                 el.classList.add('text-slate-600');
@@ -419,14 +501,12 @@
                 navBtn.classList.add('active', 'bg-blue-50', 'text-hues-700', 'border', 'border-blue-200', 'shadow-sm');
             }
 
-            // Sync Dropdown
             document.getElementById('filterStatus').value = catKey;
 
-            // Update Header Title
             const titleMap = {
                 'active': '<i class="fa-solid fa-list-check text-hues-600"></i> Phản ánh của bộ phận',
                 'urgent': '<i class="fa-solid fa-triangle-exclamation text-red-500"></i> Phản ánh Đến hạn / Quá hạn',
-                'other_unit': '<i class="fa-solid fa-share-from-square text-purple-600"></i> Phản ánh thuộc đơn vị khác',
+                'other_unit': '<i class="fa-solid fa-share-from-square text-purple-600"></i> Phản ánh của đơn vị khác',
                 'completed': '<i class="fa-solid fa-circle-check text-emerald-500"></i> Phản ánh đã hoàn thành'
             };
             document.getElementById('sectionTitle').innerHTML = titleMap[catKey] || titleMap['active'];
@@ -445,10 +525,19 @@
         function checkDeadlineStatus(endDateStr, status) {
             if (status === 'Hoàn thành') return { isUrgent: false, type: 'completed', text: 'Hoàn thành' };
 
-            const parts = endDateStr.split('/');
-            if (parts.length < 3) return { isUrgent: false, type: 'normal', text: 'Bình thường' };
+            const parts = endDateStr.split('-');
+            let endDate;
+            if (parts.length === 3 && parts[0].length === 4) {
+                endDate = new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
+            } else {
+                const p2 = endDateStr.split('/');
+                if (p2.length === 3) {
+                    endDate = new Date(parseInt(p2[2]), parseInt(p2[1]) - 1, parseInt(p2[0]));
+                } else {
+                    return { isUrgent: false, type: 'normal', text: 'Còn hạn' };
+                }
+            }
 
-            const endDate = new Date(parseInt(parts[2]), parseInt(parts[1]) - 1, parseInt(parts[0]));
             const diffDays = Math.ceil((endDate - SYSTEM_CURRENT_DATE) / (1000 * 60 * 60 * 24));
 
             if (diffDays < 0) {
@@ -465,15 +554,110 @@
             const record = reflectionsList.find(r => r.id === id);
             if (!record) return;
 
-            if (confirm(`Xác nhận chuyển phản ánh #${id} sang "MỤC CỦA ĐƠN VỊ KHÁC"?\nPhản ánh sẽ tự động nhảy rời khỏi mục của bộ phận.`)) {
+            if (confirm(`Xác nhận chuyển phản ánh #${id} sang "MỤC CỦA ĐƠN VỊ KHÁC"?\nPhản ánh sẽ nhảy sang danh sách của đơn vị khác.`)) {
                 record.isOtherUnit = true;
-                record.notes = (record.notes ? record.notes + ' | ' : '') + 'Đã chuyển đơn vị khác giải quyết theo thẩm quyền.';
+                record.notes = (record.notes ? record.notes + ' | ' : '') + 'Đã chuyển sang đơn vị khác xử lý.';
                 
                 renderTable();
                 if (!document.getElementById('editModal').classList.contains('hidden')) {
                     closeEditModal();
                 }
             }
+        }
+
+        // Action: BACK TO OUR DEPARTMENT (Nằm yên trở lại ở bộ phận)
+        function backToOurUnit(id) {
+            const record = reflectionsList.find(r => r.id === id);
+            if (!record) return;
+
+            if (confirm(`Khôi phục phản ánh #${id} trở về "PHẢN ÁNH CỦA BỘ PHẬN"?`)) {
+                record.isOtherUnit = false;
+                record.notes = (record.notes ? record.notes + ' | ' : '') + 'Đã thu hồi quay lại bộ phận.';
+                renderTable();
+            }
+        }
+
+        // Modal Add Handlers
+        function openAddModal() {
+            document.getElementById('addReflectForm').reset();
+            uploadedImageBase64 = null;
+            removeSelectedImage();
+            
+            // Auto fill Current Time & Default Date
+            const now = new Date();
+            const timeStr = `${String(now.getDate()).padStart(2,'0')}/${String(now.getMonth()+1).padStart(2,'0')}/${now.getFullYear()} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
+            document.getElementById('addTime').value = timeStr;
+            
+            // Default 7 days
+            const end = new Date();
+            end.setDate(end.getDate() + 7);
+            document.getElementById('addEndDate').value = end.toISOString().split('T')[0];
+
+            document.getElementById('addModal').classList.remove('hidden');
+        }
+
+        function closeAddModal() {
+            document.getElementById('addModal').classList.add('hidden');
+        }
+
+        function previewImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    uploadedImageBase64 = e.target.result;
+                    document.getElementById('imagePreview').src = uploadedImageBase64;
+                    document.getElementById('imagePreviewContainer').classList.remove('hidden');
+                    document.getElementById('imageUploadBtn').classList.add('hidden');
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function removeSelectedImage() {
+            uploadedImageBase64 = null;
+            document.getElementById('addImageInput').value = '';
+            document.getElementById('imagePreview').src = '';
+            document.getElementById('imagePreviewContainer').classList.add('hidden');
+            document.getElementById('imageUploadBtn').classList.remove('hidden');
+        }
+
+        // Save New Reflection -> Jump to Department Active List
+        function saveNewReflection(e) {
+            e.preventDefault();
+
+            const code = document.getElementById('addCode').value.trim();
+            const time = document.getElementById('addTime').value.trim();
+            const name = document.getElementById('addName').value.trim();
+            const content = document.getElementById('addContent').value.trim();
+            const endDateRaw = document.getElementById('addEndDate').value;
+            const status = document.getElementById('addStatus').value;
+
+            // Format End Date Display
+            const dParts = endDateRaw.split('-');
+            const endDateDisplay = `${dParts[2]}/${dParts[1]}/${dParts[0]}`;
+            const dateRangeStr = `${time.split(' ')[0]} - ${endDateDisplay}`;
+
+            const newObj = {
+                id: code,
+                name: name,
+                time: time,
+                content: content,
+                dateRange: dateRangeStr,
+                endDate: endDateRaw,
+                status: status,
+                image: uploadedImageBase64 || '',
+                notes: 'Mới khởi tạo bởi Quản lý Trần Anh Khoa',
+                isOtherUnit: false
+            };
+
+            // Add to top of list
+            reflectionsList.unshift(newObj);
+
+            closeAddModal();
+            // Automatically switch to Active Department List
+            switchCategory('active');
+            alert(`Đã thêm thành công phản ánh #${code}!\nPhản ánh đã nhảy lên danh sách Phản ánh của bộ phận.`);
         }
 
         function renderTable() {
@@ -484,7 +668,6 @@
             tbody.innerHTML = '';
             mobileBody.innerHTML = '';
 
-            // Calculate Counts for Sidebar Badges
             let activeCnt = 0;
             let urgentCnt = 0;
             let otherCnt = 0;
@@ -507,10 +690,11 @@
             document.getElementById('otherUnitBadgeCount').innerText = otherCnt;
             document.getElementById('completedBadgeCount').innerText = completedCnt;
 
-            // Filter List based on Category Selection
             const filteredList = reflectionsList.filter(item => {
                 const dl = checkDeadlineStatus(item.endDate, item.status);
-                const matchKw = item.id.toLowerCase().includes(keyword) || item.title.toLowerCase().includes(keyword);
+                const matchKw = item.id.toLowerCase().includes(keyword) || 
+                                item.name.toLowerCase().includes(keyword) || 
+                                item.content.toLowerCase().includes(keyword);
 
                 let matchCat = false;
                 if (currentCategory === 'active') {
@@ -533,7 +717,7 @@
                     <i class="fa-regular fa-folder-open text-3xl mb-1 block"></i>
                     Không có phản ánh nào trong mục này.
                 </div>`;
-                tbody.innerHTML = `<tr><td colspan="8">${emptyMsg}</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="7">${emptyMsg}</td></tr>`;
                 mobileBody.innerHTML = emptyMsg;
                 return;
             }
@@ -554,29 +738,37 @@
                     statusBadge = `<span class="bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full font-bold text-[10px]"><i class="fa-solid fa-spinner animate-spin"></i> Đang xử lý</span>`;
                 }
 
+                const imgHtml = item.image ? `<img src="${item.image}" class="w-10 h-10 object-cover rounded border shadow-sm mt-1" alt="Ảnh PA">` : '';
+
                 // Desktop Row
                 const tr = document.createElement('tr');
                 tr.className = `${rowBgClass} transition border-b border-slate-100 text-xs`;
                 tr.innerHTML = `
                     <td class="py-2.5 px-2 text-center font-medium text-slate-500">${index + 1}</td>
-                    <td class="py-2.5 px-3 font-extrabold text-hues-700 hover:underline cursor-pointer" onclick="openEditModal('${item.id}')">${item.id}</td>
+                    <td class="py-2.5 px-3">
+                        <span class="font-extrabold text-hues-700 hover:underline cursor-pointer" onclick="openEditModal('${item.id}')">#${item.id}</span>
+                        ${imgHtml}
+                    </td>
                     <td class="py-2.5 px-3 text-slate-500 whitespace-nowrap">${item.time}</td>
-                    <td class="py-2.5 px-3 font-semibold text-slate-800">
-                        ${item.title}
-                        ${item.notes ? `<div class="text-[11px] text-blue-700 mt-1 font-normal bg-blue-50/80 p-1 rounded border border-blue-100"><i class="fa-solid fa-user-shield text-hues-600"></i> <b>Quản lý Trần Anh Khoa:</b> ${item.notes}</div>` : ''}
+                    <td class="py-2.5 px-3">
+                        <div class="font-bold text-slate-900">${item.name}</div>
+                        <div class="text-slate-600 text-[11px] mt-0.5">${item.content}</div>
+                        ${item.notes ? `<div class="text-[10px] text-blue-700 mt-1 bg-blue-50/80 p-1 rounded border border-blue-100"><i class="fa-solid fa-user-shield text-hues-600"></i> ${item.notes}</div>` : ''}
                     </td>
                     <td class="py-2.5 px-3 text-center text-slate-600 font-medium whitespace-nowrap text-[11px]">${item.dateRange}</td>
                     <td class="py-2.5 px-3 text-center">${statusBadge}</td>
-                    <td class="py-2.5 px-3 text-center">${item.map ? '<i class="fa-solid fa-location-dot text-red-500 text-sm"></i>' : '-'}</td>
                     <td class="py-2.5 px-3 text-center">
                         <div class="flex items-center justify-center gap-1">
                             <button onclick="openEditModal('${item.id}')" class="bg-hues-600 hover:bg-hues-700 text-white font-bold text-[11px] px-2 py-1 rounded shadow-sm transition flex items-center gap-1">
                                 <i class="fa-solid fa-pen-to-square"></i> Sửa
                             </button>
                             ${!item.isOtherUnit ? `
-                            <button onclick="transferToOtherUnit('${item.id}')" title="Chuyển ngay sang mục đơn vị khác" class="bg-purple-600 hover:bg-purple-700 text-white font-bold text-[11px] px-2 py-1 rounded shadow-sm transition flex items-center gap-1">
+                            <button onclick="transferToOtherUnit('${item.id}')" title="Chuyển sang Đơn vị khác" class="bg-purple-600 hover:bg-purple-700 text-white font-bold text-[11px] px-2 py-1 rounded shadow-sm transition flex items-center gap-1">
                                 <i class="fa-solid fa-share"></i> Chuyển
-                            </button>` : ''}
+                            </button>` : `
+                            <button onclick="backToOurUnit('${item.id}')" title="Quay lại nằm yên ở Bộ phận" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-[11px] px-2 py-1 rounded shadow-sm transition flex items-center gap-1">
+                                <i class="fa-solid fa-rotate-left"></i> Back
+                            </button>`}
                         </div>
                     </td>
                 `;
@@ -590,17 +782,22 @@
                         <span class="font-black text-hues-700 text-sm">#${item.id}</span>
                         <div>${statusBadge}</div>
                     </div>
-                    <div class="font-bold text-slate-800 text-xs">${item.title}</div>
+                    <div class="font-black text-slate-900">${item.name}</div>
+                    <div class="text-slate-700">${item.content}</div>
+                    ${item.image ? `<div class="mt-1"><img src="${item.image}" class="max-h-24 rounded border shadow-sm"></div>` : ''}
                     <div class="text-[11px] text-slate-500 flex justify-between items-center">
                         <span><i class="fa-regular fa-clock mr-1"></i>${item.time}</span>
-                        <span><i class="fa-regular fa-calendar-check mr-1"></i>${item.endDate}</span>
+                        <span><i class="fa-regular fa-calendar-check mr-1"></i>Hạn: ${item.endDate}</span>
                     </div>
-                    ${item.notes ? `<div class="text-[11px] text-blue-700 bg-blue-50 p-1.5 rounded border border-blue-100"><i class="fa-solid fa-user-shield"></i> <b>Quản lý Trần Anh Khoa:</b> ${item.notes}</div>` : ''}
+                    ${item.notes ? `<div class="text-[10px] text-blue-700 bg-blue-50 p-1.5 rounded border border-blue-100"><i class="fa-solid fa-user-shield"></i> ${item.notes}</div>` : ''}
                     <div class="pt-2 border-t border-slate-100 flex items-center justify-end gap-2">
                         ${!item.isOtherUnit ? `
                         <button onclick="transferToOtherUnit('${item.id}')" class="bg-purple-600 text-white font-bold text-[11px] px-2.5 py-1 rounded shadow-sm flex items-center gap-1">
                             <i class="fa-solid fa-share"></i> Chuyển Đơn Vị Khác
-                        </button>` : ''}
+                        </button>` : `
+                        <button onclick="backToOurUnit('${item.id}')" class="bg-emerald-600 text-white font-bold text-[11px] px-2.5 py-1 rounded shadow-sm flex items-center gap-1">
+                            <i class="fa-solid fa-rotate-left"></i> Quay lại Bộ Phận
+                        </button>`}
                         <button onclick="openEditModal('${item.id}')" class="bg-hues-600 text-white font-bold text-[11px] px-2.5 py-1 rounded shadow-sm flex items-center gap-1">
                             <i class="fa-solid fa-pen-to-square"></i> Cập Nhật
                         </button>
@@ -610,16 +807,23 @@
             });
         }
 
-        // Modal Functions
+        // Modal Edit Functions
         function openEditModal(id) {
             selectedId = id;
             const record = reflectionsList.find(r => r.id === id);
             if (!record) return;
 
             document.getElementById('editCode').innerText = record.id;
-            document.getElementById('editTitle').innerText = record.title;
+            document.getElementById('editTitle').innerText = `${record.name} - ${record.content}`;
             document.getElementById('editStatus').value = record.isOtherUnit ? 'Chuyển đơn vị khác' : record.status;
             document.getElementById('editProcessContent').value = record.notes || '';
+
+            const imgBox = document.getElementById('editImageDisplay');
+            if (record.image) {
+                imgBox.innerHTML = `<span class="font-bold text-slate-500 block mb-1">Hình ảnh đính kèm:</span><img src="${record.image}" class="max-h-28 rounded border shadow-sm">`;
+            } else {
+                imgBox.innerHTML = '';
+            }
 
             const deadline = checkDeadlineStatus(record.endDate, record.status);
             const badgeBox = document.getElementById('editDeadlineBadge');
@@ -627,7 +831,7 @@
             if (deadline.isUrgent && !record.isOtherUnit) {
                 badgeBox.innerHTML = `
                     <div class="bg-red-100 border border-red-300 text-red-800 p-2 rounded-lg text-xs font-bold flex items-center justify-between">
-                        <span><i class="fa-solid fa-triangle-exclamation text-red-600 mr-1"></i> ƯU TIÊN XỬ LÝ:</span>
+                        <span><i class="fa-solid fa-triangle-exclamation text-red-600 mr-1"></i> TÌNH TRẠNG:</span>
                         <span class="bg-red-600 text-white px-2 py-0.5 rounded text-[10px] animate-pulse">${deadline.text}</span>
                     </div>
                 `;
