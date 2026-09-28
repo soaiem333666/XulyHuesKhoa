@@ -106,6 +106,9 @@
                     <i class="fa-solid fa-circle-plus text-sm"></i>
                     <span>TẠO PHẢN ÁNH MỚI</span>
                 </button>
+                <button onclick="resetDataToDefault()" class="bg-red-500 hover:bg-red-600 text-white font-bold px-2.5 py-1.5 rounded-xl shadow-md transition text-[11px]" title="Khôi phục lại dữ liệu mẫu gốc">
+                    <i class="fa-solid fa-rotate-right"></i> Reset
+                </button>
                 <a href="https://zalo.me/0562242242" target="_blank" rel="noopener noreferrer" 
                    class="bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-bold px-3 py-1.5 rounded-xl shadow-md transition transform active:scale-95 flex items-center gap-2 border border-emerald-300/40">
                     <i class="fa-solid fa-paper-plane text-yellow-200 text-sm"></i>
@@ -123,11 +126,6 @@
                         <i class="fa-solid fa-user-shield text-emerald-400"></i>
                         <span class="hidden md:inline">Quản lý:</span> Trần Anh Khoa
                     </span>
-                    <span class="text-blue-300 hidden md:inline">|</span>
-                    <button onclick="handleLogoutOrExit()" class="hover:text-red-300 transition font-semibold text-white ml-1 md:ml-0">
-                        <i class="fa-solid fa-right-from-bracket md:hidden"></i>
-                        <span class="hidden md:inline">Thoát</span>
-                    </button>
                 </div>
             </div>
         </div>
@@ -189,19 +187,6 @@
                     <i class="fa-solid fa-plus-circle"></i>
                     <span>THÊM PHẢN ÁNH MỚI</span>
                 </button>
-            </div>
-
-            <!-- Quick Zalo Box -->
-            <div class="p-3 border-t border-slate-200 bg-gradient-to-br from-slate-50 to-blue-50 text-xs text-slate-600">
-                <div class="flex items-center gap-1.5 font-bold text-slate-800 mb-1">
-                    <i class="fa-solid fa-headset text-hues-600"></i>
-                    <span>Trực Tiếp Nhận Hồ Sơ</span>
-                </div>
-                <p class="text-[11px] text-slate-500 mb-2">Liên hệ Zalo:</p>
-                <a href="https://zalo.me/0562242242" target="_blank" 
-                   class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-1.5 px-2 rounded-lg text-center block text-xs shadow-sm transition">
-                    <i class="fa-solid fa-phone mr-1"></i> Zalo: 0562242242
-                </a>
             </div>
         </aside>
 
@@ -298,18 +283,6 @@
 
         </main>
     </div>
-
-    <!-- FOOTER -->
-    <footer class="bg-hues-900 text-white text-center py-2 text-xs font-medium shadow-inner flex-none border-t border-hues-700 flex flex-wrap justify-between px-3 items-center">
-        <div class="flex items-center gap-2">
-            <span class="font-bold text-yellow-400">PHƯỜNG AN CỰU</span>
-            <span class="hidden sm:inline">- Hệ Thống Xử Lý HUE-S</span>
-        </div>
-        <div class="text-yellow-300 font-extrabold flex items-center gap-1.5 text-[11px]">
-            <i class="fa-solid fa-shield-halved text-emerald-400"></i>
-            <span>Quản lý hệ thống: Trần Anh Khoa 2026</span>
-        </div>
-    </footer>
 
     <!-- MODAL 1: THÊM PHẢN ÁNH MỚI -->
     <div id="addModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center hidden p-3 md:p-4">
@@ -466,13 +439,14 @@
         </div>
     </div>
 
-    <!-- LOGIC SCRIPT -->
+    <!-- LOGIC SCRIPT VỚI LOCALSTORAGE LƯU TRỮ VĨNH VIỄN -->
     <script>
         const SYSTEM_CURRENT_DATE = new Date(2026, 8, 28);
+        const STORAGE_KEY = 'HUES_REFLECTIONS_DATA_2026';
         let uploadedImageBase64 = null;
 
-        // Dataset
-        let reflectionsList = [
+        // Dữ liệu mặc định gốc
+        const defaultReflectionsList = [
             { id: '270926070', name: 'Kiến nghị nâng cấp đường Nhất Đông', time: '27/09/2026 15:55', content: 'Mặt đường hư hỏng nặng gây nguy hiểm giao thông.', dateRange: '27/09/2026 - 07/10/2026', endDate: '07/10/2026', status: 'Đang xử lý', image: '', notes: '', isOtherUnit: false },
             { id: '270926013', name: 'Làm mái che lấn chiếm tại 22 Nguyễn Khánh Toàn', time: '27/09/2026 08:13', content: 'Hộ dân tự ý dựng mái tôn lấn vỉa hè lần 6.', dateRange: '28/09/2026 - 07/10/2026', endDate: '07/10/2026', status: 'Đang xử lý', image: '', notes: '', isOtherUnit: false },
             { id: '250926073', name: 'Nuôi gà gây ô nhiễm tại 3/35/135 Đặng Văn Ngữ', time: '25/09/2026 13:43', content: 'Gây mùi hôi bốc lên ảnh hưởng các hộ xung quanh.', dateRange: '25/09/2026 - 06/10/2026', endDate: '06/10/2026', status: 'Đang xử lý', image: '', notes: '', isOtherUnit: false },
@@ -480,8 +454,38 @@
             { id: '170926086', name: 'Buôn bán lấn chiếm lề đường tại 36 Nguyễn Khánh Toàn', time: '17/09/2026 18:57', content: 'Bày bàn ghế tràn ra lòng đường vào giờ cao điểm.', dateRange: '17/09/2026 - 28/09/2026', endDate: '28/09/2026', status: 'Đang xử lý', image: '', notes: '', isOtherUnit: false }
         ];
 
+        let reflectionsList = [];
         let selectedId = null;
         let currentCategory = 'active';
+
+        // Lấy dữ liệu từ localStorage khi load trang
+        function loadStorageData() {
+            const saved = localStorage.getItem(STORAGE_KEY);
+            if (saved) {
+                try {
+                    reflectionsList = JSON.parse(saved);
+                } catch(e) {
+                    reflectionsList = [...defaultReflectionsList];
+                }
+            } else {
+                reflectionsList = [...defaultReflectionsList];
+                saveStorageData();
+            }
+        }
+
+        // Lưu dữ liệu vào localStorage
+        function saveStorageData() {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(reflectionsList));
+        }
+
+        // Reset dữ liệu về ban đầu nếu muốn
+        function resetDataToDefault() {
+            if (confirm("Bạn có muốn xóa dữ liệu đã sửa và khôi phục về danh sách mẫu ban đầu không?")) {
+                localStorage.removeItem(STORAGE_KEY);
+                loadStorageData();
+                renderTable();
+            }
+        }
 
         function toggleSidebar() {
             document.getElementById('sidebar').classList.toggle('-translate-x-full');
@@ -554,10 +558,11 @@
             const record = reflectionsList.find(r => r.id === id);
             if (!record) return;
 
-            if (confirm(`Xác nhận chuyển phản ánh #${id} sang "MỤC CỦA ĐƠN VỊ KHÁC"?\nPhản ánh sẽ nhảy sang danh sách của đơn vị khác.`)) {
+            if (confirm(`Xác nhận chuyển phản ánh #${id} sang "MỤC CỦA ĐƠN VỊ KHÁC"?\nPhản ánh sẽ được lưu vĩnh viễn trong mục đơn vị khác kể cả khi F5.`)) {
                 record.isOtherUnit = true;
                 record.notes = (record.notes ? record.notes + ' | ' : '') + 'Đã chuyển sang đơn vị khác xử lý.';
                 
+                saveStorageData(); // Lưu ngay vào bộ nhớ
                 renderTable();
                 if (!document.getElementById('editModal').classList.contains('hidden')) {
                     closeEditModal();
@@ -565,7 +570,7 @@
             }
         }
 
-        // Action: BACK TO OUR DEPARTMENT (Nằm yên trở lại ở bộ phận)
+        // Action: BACK TO OUR DEPARTMENT
         function backToOurUnit(id) {
             const record = reflectionsList.find(r => r.id === id);
             if (!record) return;
@@ -573,6 +578,8 @@
             if (confirm(`Khôi phục phản ánh #${id} trở về "PHẢN ÁNH CỦA BỘ PHẬN"?`)) {
                 record.isOtherUnit = false;
                 record.notes = (record.notes ? record.notes + ' | ' : '') + 'Đã thu hồi quay lại bộ phận.';
+                
+                saveStorageData(); // Lưu ngay vào bộ nhớ
                 renderTable();
             }
         }
@@ -583,12 +590,10 @@
             uploadedImageBase64 = null;
             removeSelectedImage();
             
-            // Auto fill Current Time & Default Date
             const now = new Date();
             const timeStr = `${String(now.getDate()).padStart(2,'0')}/${String(now.getMonth()+1).padStart(2,'0')}/${now.getFullYear()} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
             document.getElementById('addTime').value = timeStr;
             
-            // Default 7 days
             const end = new Date();
             end.setDate(end.getDate() + 7);
             document.getElementById('addEndDate').value = end.toISOString().split('T')[0];
@@ -622,7 +627,7 @@
             document.getElementById('imageUploadBtn').classList.remove('hidden');
         }
 
-        // Save New Reflection -> Jump to Department Active List
+        // Save New Reflection
         function saveNewReflection(e) {
             e.preventDefault();
 
@@ -633,7 +638,6 @@
             const endDateRaw = document.getElementById('addEndDate').value;
             const status = document.getElementById('addStatus').value;
 
-            // Format End Date Display
             const dParts = endDateRaw.split('-');
             const endDateDisplay = `${dParts[2]}/${dParts[1]}/${dParts[0]}`;
             const dateRangeStr = `${time.split(' ')[0]} - ${endDateDisplay}`;
@@ -651,13 +655,12 @@
                 isOtherUnit: false
             };
 
-            // Add to top of list
             reflectionsList.unshift(newObj);
+            saveStorageData(); // Lưu vĩnh viễn
 
             closeAddModal();
-            // Automatically switch to Active Department List
             switchCategory('active');
-            alert(`Đã thêm thành công phản ánh #${code}!\nPhản ánh đã nhảy lên danh sách Phản ánh của bộ phận.`);
+            alert(`Đã thêm thành công phản ánh #${code}!\nĐã lưu vĩnh viễn không lo mất khi F5.`);
         }
 
         function renderTable() {
@@ -865,16 +868,14 @@
                 }
                 record.notes = document.getElementById('editProcessContent').value;
 
+                saveStorageData(); // Lưu ngay vào localStorage
                 renderTable();
                 closeEditModal();
             }
         }
 
-        function handleLogoutOrExit() {
-            alert("Đã thoát phiên làm việc của Quản lý hệ thống: Trần Anh Khoa.");
-        }
-
         window.onload = function() {
+            loadStorageData(); // Nạp dữ liệu đã lưu khi F5
             renderTable();
         };
     </script>
