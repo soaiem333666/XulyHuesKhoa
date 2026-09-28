@@ -262,6 +262,7 @@
                                     <th class="py-2.5 px-3">Mã & Ảnh</th>
                                     <th class="py-2.5 px-3">Thời gian</th>
                                     <th class="py-2.5 px-3">Tên & Nội dung phản ánh</th>
+                                    <th class="py-2.5 px-3 text-center">Hình thức</th>
                                     <th class="py-2.5 px-3 text-center">Hạn xử lý</th>
                                     <th class="py-2.5 px-3 text-center">Trạng thái</th>
                                     <th class="py-2.5 px-3 text-center min-w-[170px]">Thao tác</th>
@@ -309,9 +310,18 @@
                     </div>
                 </div>
 
-                <div>
-                    <label class="block font-bold text-slate-700 mb-1">Tên phản ánh (Tiêu đề) <span class="text-red-500">*</span></label>
-                    <input type="text" id="addName" required placeholder="Nhập tên/tiêu đề phản ánh ngắn gọn..." class="w-full p-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-hues-500 focus:outline-none font-bold">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">Tên phản ánh (Tiêu đề) <span class="text-red-500">*</span></label>
+                        <input type="text" id="addName" required placeholder="Nhập tên/tiêu đề phản ánh..." class="w-full p-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-hues-500 focus:outline-none font-bold">
+                    </div>
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">Hình thức</label>
+                        <select id="addType" class="w-full p-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-hues-500 focus:outline-none font-bold">
+                            <option value="Phản ánh">Phản ánh</option>
+                            <option value="Hỏi đáp">Hỏi đáp</option>
+                        </select>
+                    </div>
                 </div>
 
                 <div>
@@ -333,7 +343,7 @@
                     </div>
                 </div>
 
-                <!-- CHỖ TẢI / BỎ HÌNH ẢNH PHẢN ÁNH -->
+                <!-- CHỖ TẢI HÌNH ẢNH PHẢN ÁNH -->
                 <div>
                     <label class="block font-bold text-slate-700 mb-1">Hình ảnh phản ánh</label>
                     <div class="border-2 border-dashed border-slate-300 rounded-xl p-3 bg-slate-50 text-center">
@@ -349,7 +359,7 @@
                                 <i class="fa-solid fa-image text-hues-600"></i>
                                 <span>Tải ảnh phản ánh lên</span>
                             </button>
-                            <p class="text-[10px] text-slate-400 mt-1">Hỗ trợ JPG, PNG, WEBP (Bấm nút X để bỏ hình ảnh)</p>
+                            <p class="text-[10px] text-slate-400 mt-1">Hỗ trợ JPG, PNG, WEBP</p>
                         </div>
                     </div>
                 </div>
@@ -442,16 +452,24 @@
     <!-- LOGIC SCRIPT VỚI LOCALSTORAGE LƯU TRỮ VĨNH VIỄN -->
     <script>
         const SYSTEM_CURRENT_DATE = new Date(2026, 8, 28);
-        const STORAGE_KEY = 'HUES_REFLECTIONS_DATA_2026';
+        const STORAGE_KEY = 'HUES_REFLECTIONS_DATA_2026_V2';
         let uploadedImageBase64 = null;
 
-        // Dữ liệu mặc định gốc
+        // Cập nhật đầy đủ 13 phản ánh từ hình ảnh cung cấp
         const defaultReflectionsList = [
-            { id: '270926070', name: 'Kiến nghị nâng cấp đường Nhất Đông', time: '27/09/2026 15:55', content: 'Mặt đường hư hỏng nặng gây nguy hiểm giao thông.', dateRange: '27/09/2026 - 07/10/2026', endDate: '07/10/2026', status: 'Đang xử lý', image: '', notes: '', isOtherUnit: false },
-            { id: '270926013', name: 'Làm mái che lấn chiếm tại 22 Nguyễn Khánh Toàn', time: '27/09/2026 08:13', content: 'Hộ dân tự ý dựng mái tôn lấn vỉa hè lần 6.', dateRange: '28/09/2026 - 07/10/2026', endDate: '07/10/2026', status: 'Đang xử lý', image: '', notes: '', isOtherUnit: false },
-            { id: '250926073', name: 'Nuôi gà gây ô nhiễm tại 3/35/135 Đặng Văn Ngữ', time: '25/09/2026 13:43', content: 'Gây mùi hôi bốc lên ảnh hưởng các hộ xung quanh.', dateRange: '25/09/2026 - 06/10/2026', endDate: '06/10/2026', status: 'Đang xử lý', image: '', notes: '', isOtherUnit: false },
-            { id: '200926036', name: 'Lấn chiếm đất công tại 1/42 Nguyễn Khánh Toàn', time: '20/09/2026 12:16', content: 'Dựng nhà tạm trái phép trên đất công ích.', dateRange: '20/09/2026 - 30/09/2026', endDate: '30/09/2026', status: 'Đang xử lý', image: '', notes: '', isOtherUnit: false },
-            { id: '170926086', name: 'Buôn bán lấn chiếm lề đường tại 36 Nguyễn Khánh Toàn', time: '17/09/2026 18:57', content: 'Bày bàn ghế tràn ra lòng đường vào giờ cao điểm.', dateRange: '17/09/2026 - 28/09/2026', endDate: '28/09/2026', status: 'Đang xử lý', image: '', notes: '', isOtherUnit: false }
+            { id: '270926100', name: 'Hát karaoke gây ô nhiễm tiếng ồn tại số 24/56 Hải Triều', time: '27/09/2026 19:50', content: 'Hát karaoke gây ô nhiễm tiếng ồn tại số 24/56 Hải Triều', type: 'Phản ánh', dateRange: '28/09/2026 - 07/10/2026', endDate: '07/10/2026', status: 'Đang xử lý', image: '', notes: '', isOtherUnit: false },
+            { id: '270926070', name: 'Kiến nghị nâng cấp đường Nhất Đông', time: '27/09/2026 15:55', content: 'Kiến nghị nâng cấp đường Nhất Đông', type: 'Phản ánh', dateRange: '27/09/2026 - 07/10/2026', endDate: '07/10/2026', status: 'Đang xử lý', image: '', notes: '', isOtherUnit: false },
+            { id: '270926013', name: 'Làm mái che lấn chiếm tại 22 Nguyễn Khánh Toàn (lần 6)', time: '27/09/2026 08:13', content: 'Làm mái che lấn chiếm tại 22 Nguyễn Khánh Toàn (lần 6)', type: 'Phản ánh', dateRange: '28/09/2026 - 07/10/2026', endDate: '07/10/2026', status: 'Đang xử lý', image: '', notes: '', isOtherUnit: false },
+            { id: '250926073', name: 'Nuôi gà gây ô nhiễm tại 3/35/135 Đặng Văn Ngữ', time: '25/09/2026 13:43', content: 'Nuôi gà gây ô nhiễm tại 3/35/135 Đặng Văn Ngữ', type: 'Phản ánh', dateRange: '25/09/2026 - 06/10/2026', endDate: '06/10/2026', status: 'Đang xử lý', image: '', notes: '', isOtherUnit: false },
+            { id: '240926068', name: 'Kiến nghị thu gom cành cây và dải hạ tại 33 Nguyễn Khoa Chiêm', time: '24/09/2026 15:57', content: 'Kiến nghị thu gom cành cây và dải hạ tại 33 Nguyễn Khoa Chiêm', type: 'Phản ánh', dateRange: '24/09/2026 - 05/10/2026', endDate: '05/10/2026', status: 'Đang xử lý', image: '', notes: '', isOtherUnit: false },
+            { id: '240926060', name: 'Hỏi về thời gian nhận tiền hỗ trợ miễn giảm học phí tại trường Mầm non Thảo Nguyên Xanh', time: '24/09/2026 15:11', content: 'Hỏi về thời gian nhận tiền hỗ trợ miễn giảm học phí tại trường Mầm non Thảo Nguyên Xanh', type: 'Hỏi đáp', dateRange: '24/09/2026 - 05/10/2026', endDate: '05/10/2026', status: 'Đang xử lý', image: '', notes: '', isOtherUnit: false },
+            { id: '230926028', name: 'Làm mái hiên chiếm đường đi tại cuối kiệt 121 đường Tôn Quang Phiệt', time: '23/09/2026 09:34', content: 'Làm mái hiên chiếm đường đi tại cuối kiệt 121 đường Tôn Quang Phiệt', type: 'Phản ánh', dateRange: '23/09/2026 - 02/10/2026', endDate: '02/10/2026', status: 'Đang xử lý', image: '', notes: '', isOtherUnit: false },
+            { id: '170926086', name: 'Buôn bán lấn chiếm lề đường tại 36 đường Nguyễn Khánh Toàn', time: '17/09/2026 18:57', content: 'Buôn bán lấn chiếm lề đường tại 36 đường Nguyễn Khánh Toàn', type: 'Phản ánh', dateRange: '17/09/2026 - 28/09/2026', endDate: '28/09/2026', status: 'Đang xử lý', image: '', notes: '', isOtherUnit: false },
+            { id: '170926044', name: 'Tự ý chôn mốc, rào quanh trụ điện tại nhà 1H kiệt 56 Duy Tân', time: '17/09/2026 14:14', content: 'Tự ý chôn mốc, rào quanh trụ điện tại nhà 1H kiệt 56 Duy Tân', type: 'Phản ánh', dateRange: '17/09/2026 - 28/09/2026', endDate: '28/09/2026', status: 'Đang xử lý', image: '', notes: '', isOtherUnit: false },
+            { id: '170926037', name: 'Kiểm tra cơi nới lấn chiếm đất tại nhà 29 kiệt 8 đường Tôn Thất Cảnh', time: '17/09/2026 12:59', content: 'Kiểm tra cơi nới lấn chiếm đất tại nhà 29 kiệt 8 đường Tôn Thất Cảnh', type: 'Phản ánh', dateRange: '18/09/2026 - 29/09/2026', endDate: '29/09/2026', status: 'Đang xử lý', image: '', notes: '', isOtherUnit: false },
+            { id: '100926126', name: 'Kiến nghị làm rõ khoản thu "Hoạt động Sao đội" và "Quỹ nhà trường"', time: '10/09/2026 20:23', content: 'Kiến nghị làm rõ khoản thu "Hoạt động Sao đội" và "Quỹ nhà trường"', type: 'Phản ánh', dateRange: '10/09/2026 - 21/09/2026', endDate: '21/09/2026', status: 'Đang xử lý', image: '', notes: '', isOtherUnit: false },
+            { id: '090926082', name: 'Xe máy bks 75H124800 bỏ hoang tại đường luồng phía sau cửa hàng ô tô điện lô OSH 3-2 đường Võ Nguyên Giáp', time: '09/09/2026 15:22', content: 'Xe máy bks 75H124800 bỏ hoang tại đường luồng phía sau cửa hàng ô tô điện lô OSH 3-2 đường Võ Nguyên Giáp', type: 'Phản ánh', dateRange: '09/09/2026 - 18/09/2026', endDate: '18/09/2026', status: 'Đang xử lý', image: '', notes: '', isOtherUnit: false },
+            { id: '270826056', name: 'Chưa hoàn trả mặt bằng tại 38 Trần Anh Liên (lần 2)', time: '27/08/2026 15:36', content: 'Chưa hoàn trả mặt bằng tại 38 Trần Anh Liên (lần 2)', type: 'Phản ánh', dateRange: '11/09/2026 - 22/09/2026', endDate: '22/09/2026', status: 'Đang xử lý', image: '', notes: '', isOtherUnit: false }
         ];
 
         let reflectionsList = [];
@@ -480,7 +498,7 @@
 
         // Reset dữ liệu về ban đầu nếu muốn
         function resetDataToDefault() {
-            if (confirm("Bạn có muốn xóa dữ liệu đã sửa và khôi phục về danh sách mẫu ban đầu không?")) {
+            if (confirm("Bạn có muốn xóa dữ liệu đã sửa và khôi phục lại danh sách mẫu 13 phản ánh gốc không?")) {
                 localStorage.removeItem(STORAGE_KEY);
                 loadStorageData();
                 renderTable();
@@ -558,11 +576,11 @@
             const record = reflectionsList.find(r => r.id === id);
             if (!record) return;
 
-            if (confirm(`Xác nhận chuyển phản ánh #${id} sang "MỤC CỦA ĐƠN VỊ KHÁC"?\nPhản ánh sẽ được lưu vĩnh viễn trong mục đơn vị khác kể cả khi F5.`)) {
+            if (confirm(`Xác nhận chuyển phản ánh #${id} sang "MỤC CỦA ĐƠN VỊ KHÁC"?\nPhản ánh sẽ giữ nguyên trong mục đơn vị khác kể cả khi bấm F5.`)) {
                 record.isOtherUnit = true;
                 record.notes = (record.notes ? record.notes + ' | ' : '') + 'Đã chuyển sang đơn vị khác xử lý.';
                 
-                saveStorageData(); // Lưu ngay vào bộ nhớ
+                saveStorageData(); // Lưu ngay vào localStorage
                 renderTable();
                 if (!document.getElementById('editModal').classList.contains('hidden')) {
                     closeEditModal();
@@ -579,7 +597,7 @@
                 record.isOtherUnit = false;
                 record.notes = (record.notes ? record.notes + ' | ' : '') + 'Đã thu hồi quay lại bộ phận.';
                 
-                saveStorageData(); // Lưu ngay vào bộ nhớ
+                saveStorageData(); // Lưu ngay vào localStorage
                 renderTable();
             }
         }
@@ -634,6 +652,7 @@
             const code = document.getElementById('addCode').value.trim();
             const time = document.getElementById('addTime').value.trim();
             const name = document.getElementById('addName').value.trim();
+            const type = document.getElementById('addType').value;
             const content = document.getElementById('addContent').value.trim();
             const endDateRaw = document.getElementById('addEndDate').value;
             const status = document.getElementById('addStatus').value;
@@ -647,6 +666,7 @@
                 name: name,
                 time: time,
                 content: content,
+                type: type,
                 dateRange: dateRangeStr,
                 endDate: endDateRaw,
                 status: status,
@@ -720,7 +740,7 @@
                     <i class="fa-regular fa-folder-open text-3xl mb-1 block"></i>
                     Không có phản ánh nào trong mục này.
                 </div>`;
-                tbody.innerHTML = `<tr><td colspan="7">${emptyMsg}</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="8">${emptyMsg}</td></tr>`;
                 mobileBody.innerHTML = emptyMsg;
                 return;
             }
@@ -742,6 +762,7 @@
                 }
 
                 const imgHtml = item.image ? `<img src="${item.image}" class="w-10 h-10 object-cover rounded border shadow-sm mt-1" alt="Ảnh PA">` : '';
+                const typeBadge = item.type === 'Hỏi đáp' ? `<span class="bg-blue-100 text-blue-700 font-bold px-2 py-0.5 rounded text-[10px]">Hỏi đáp</span>` : `<span class="bg-slate-100 text-slate-600 font-bold px-2 py-0.5 rounded text-[10px]">Phản ánh</span>`;
 
                 // Desktop Row
                 const tr = document.createElement('tr');
@@ -755,9 +776,9 @@
                     <td class="py-2.5 px-3 text-slate-500 whitespace-nowrap">${item.time}</td>
                     <td class="py-2.5 px-3">
                         <div class="font-bold text-slate-900">${item.name}</div>
-                        <div class="text-slate-600 text-[11px] mt-0.5">${item.content}</div>
                         ${item.notes ? `<div class="text-[10px] text-blue-700 mt-1 bg-blue-50/80 p-1 rounded border border-blue-100"><i class="fa-solid fa-user-shield text-hues-600"></i> ${item.notes}</div>` : ''}
                     </td>
+                    <td class="py-2.5 px-3 text-center">${typeBadge}</td>
                     <td class="py-2.5 px-3 text-center text-slate-600 font-medium whitespace-nowrap text-[11px]">${item.dateRange}</td>
                     <td class="py-2.5 px-3 text-center">${statusBadge}</td>
                     <td class="py-2.5 px-3 text-center">
@@ -783,14 +804,13 @@
                 card.innerHTML = `
                     <div class="flex items-center justify-between">
                         <span class="font-black text-hues-700 text-sm">#${item.id}</span>
-                        <div>${statusBadge}</div>
+                        <div class="flex items-center gap-1">${typeBadge} ${statusBadge}</div>
                     </div>
                     <div class="font-black text-slate-900">${item.name}</div>
-                    <div class="text-slate-700">${item.content}</div>
                     ${item.image ? `<div class="mt-1"><img src="${item.image}" class="max-h-24 rounded border shadow-sm"></div>` : ''}
                     <div class="text-[11px] text-slate-500 flex justify-between items-center">
                         <span><i class="fa-regular fa-clock mr-1"></i>${item.time}</span>
-                        <span><i class="fa-regular fa-calendar-check mr-1"></i>Hạn: ${item.endDate}</span>
+                        <span><i class="fa-regular fa-calendar-check mr-1"></i>Hạn: ${item.dateRange}</span>
                     </div>
                     ${item.notes ? `<div class="text-[10px] text-blue-700 bg-blue-50 p-1.5 rounded border border-blue-100"><i class="fa-solid fa-user-shield"></i> ${item.notes}</div>` : ''}
                     <div class="pt-2 border-t border-slate-100 flex items-center justify-end gap-2">
@@ -817,7 +837,7 @@
             if (!record) return;
 
             document.getElementById('editCode').innerText = record.id;
-            document.getElementById('editTitle').innerText = `${record.name} - ${record.content}`;
+            document.getElementById('editTitle').innerText = record.name;
             document.getElementById('editStatus').value = record.isOtherUnit ? 'Chuyển đơn vị khác' : record.status;
             document.getElementById('editProcessContent').value = record.notes || '';
 
