@@ -102,6 +102,12 @@
 
             <!-- Middle Quick Actions -->
             <div class="hidden sm:flex items-center space-x-2 text-xs">
+                <!-- NÚT CHUYỂN ĐỔI CHẾ ĐỘ XEM MOBILE / DESKTOP -->
+                <button onclick="toggleViewMode()" id="viewModeToggleBtn" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-2.5 py-1.5 rounded-xl shadow-md transition flex items-center gap-1.5 border border-indigo-300/30">
+                    <i class="fa-solid fa-mobile-screen"></i>
+                    <span id="viewModeText">Xem bản Mobile</span>
+                </button>
+
                 <button onclick="openAddModal()" class="bg-yellow-400 hover:bg-yellow-500 text-blue-950 font-black px-3 py-1.5 rounded-xl shadow-md transition transform active:scale-95 flex items-center gap-1.5">
                     <i class="fa-solid fa-circle-plus text-sm"></i>
                     <span>TẠO PHẢN ÁNH MỚI</span>
@@ -118,13 +124,19 @@
 
             <!-- Right User Info -->
             <div class="flex items-center space-x-2 text-xs">
+                <!-- Nút switch view mode cho màn hình cực nhỏ -->
+                <button onclick="toggleViewMode()" class="sm:hidden bg-indigo-600 text-white p-2 rounded-lg text-xs flex items-center justify-center">
+                    <i id="mobileViewIcon" class="fa-solid fa-desktop"></i>
+                </button>
+
                 <button onclick="openAddModal()" class="sm:hidden bg-yellow-400 text-blue-950 font-black p-2 rounded-lg text-xs flex items-center justify-center">
                     <i class="fa-solid fa-plus text-sm"></i>
                 </button>
+
                 <div id="authorNavInfo" class="bg-blue-950/60 backdrop-blur-md px-2.5 py-1.5 rounded-xl border border-white/20 text-blue-100 flex items-center gap-2 shadow-inner">
                     <span id="displayUserName" class="font-bold text-white flex items-center gap-1 text-[11px] md:text-xs">
                         <i class="fa-solid fa-user-shield text-emerald-400"></i>
-                        <span class="hidden md:inline">Quản lý:</span> Trần Anh Khoa
+                        <span class="hidden md:inline">Quản trị hệ thống:</span> Trần Anh Khoa
                     </span>
                 </div>
             </div>
@@ -185,7 +197,7 @@
             <div class="p-2 border-t border-slate-100">
                 <button onclick="openAddModal()" class="w-full bg-yellow-400 hover:bg-yellow-500 text-blue-950 font-black py-2 rounded-lg shadow transition text-xs flex items-center justify-center gap-1.5">
                     <i class="fa-solid fa-plus-circle"></i>
-                    <span>THÊM PHẢN ÁNH MỚI</span>
+                    <span>Thêm phản ánh mới</span>
                 </button>
             </div>
         </aside>
@@ -254,7 +266,7 @@
                     </div>
 
                     <!-- Desktop Table View -->
-                    <div class="hidden md:block overflow-x-auto">
+                    <div id="desktopContainer" class="hidden md:block overflow-x-auto">
                         <table class="w-full text-left border-collapse text-xs">
                             <thead>
                                 <tr class="bg-blue-50/90 text-slate-700 border-b border-blue-100 font-bold uppercase tracking-wider text-[11px]">
@@ -275,8 +287,10 @@
                     </div>
 
                     <!-- Mobile Card View -->
-                    <div id="reflectMobileBody" class="block md:hidden divide-y divide-slate-200">
-                        <!-- Dynamic Render Mobile Cards -->
+                    <div id="mobileContainer" class="block md:hidden divide-y divide-slate-200">
+                        <div id="reflectMobileBody">
+                            <!-- Dynamic Render Mobile Cards -->
+                        </div>
                     </div>
 
                 </div>
@@ -285,13 +299,21 @@
         </main>
     </div>
 
+    <!-- FOOTER NHÀ PHÁT HÀNH -->
+    <footer class="bg-slate-900 text-slate-300 py-2 px-4 text-center text-xs flex-none border-t border-slate-800 shadow-lg z-20">
+        <div class="flex items-center justify-center gap-2">
+            <i class="fa-solid fa-code text-yellow-400"></i>
+            <span>Nhà phát hành<strong>Trần Anh Khoa</strong> | Hệ Thống Xử Lý Phản Ánh Hues An Cựu</span>
+        </div>
+    </footer>
+
     <!-- MODAL 1: THÊM PHẢN ÁNH MỚI -->
     <div id="addModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center hidden p-3 md:p-4">
         <div class="bg-white rounded-2xl shadow-2xl max-w-xl w-full p-4 md:p-6 border border-slate-100 relative max-h-[95vh] flex flex-col">
             <div class="flex items-center justify-between pb-3 border-b border-slate-200">
                 <h3 class="text-xs md:text-sm font-extrabold text-blue-900 flex items-center gap-2 uppercase">
                     <i class="fa-solid fa-circle-plus text-yellow-500 text-base"></i>
-                    <span>Thêm Phản Ánh Mới (Nhảy Lên Bộ Phận)</span>
+                    <span>Thêm Phản Ánh Mới</span>
                 </h3>
                 <button onclick="closeAddModal()" class="text-slate-400 hover:text-slate-600 p-1">
                     <i class="fa-solid fa-xmark text-lg"></i>
@@ -371,7 +393,7 @@
                     </button>
                     <button type="submit" class="px-5 py-2 rounded-lg bg-hues-600 hover:bg-hues-700 text-white font-extrabold flex items-center gap-1.5 shadow-md transition">
                         <i class="fa-solid fa-paper-plane"></i>
-                        <span>Lưu & Nhảy Lên Bộ Phận</span>
+                        <span>Lưu</span>
                     </button>
                 </div>
             </form>
@@ -449,13 +471,15 @@
         </div>
     </div>
 
-    <!-- LOGIC SCRIPT VỚI LOCALSTORAGE LƯU TRỮ VĨNH VIỄN -->
+    <!-- LOGIC SCRIPT VỚI LOCALSTORAGE & TOGGLE DEVICE VIEW -->
     <script>
         const SYSTEM_CURRENT_DATE = new Date(2026, 8, 28);
         const STORAGE_KEY = 'HUES_REFLECTIONS_DATA_2026_V2';
         let uploadedImageBase64 = null;
+        let isManualViewMode = false; 
+        let manualViewType = 'desktop'; // 'mobile' | 'desktop'
 
-        // Cập nhật đầy đủ 13 phản ánh từ hình ảnh cung cấp
+        // Danh sách mặc định
         const defaultReflectionsList = [
             { id: '270926100', name: 'Hát karaoke gây ô nhiễm tiếng ồn tại số 24/56 Hải Triều', time: '27/09/2026 19:50', content: 'Hát karaoke gây ô nhiễm tiếng ồn tại số 24/56 Hải Triều', type: 'Phản ánh', dateRange: '28/09/2026 - 07/10/2026', endDate: '07/10/2026', status: 'Đang xử lý', image: '', notes: '', isOtherUnit: false },
             { id: '270926070', name: 'Kiến nghị nâng cấp đường Nhất Đông', time: '27/09/2026 15:55', content: 'Kiến nghị nâng cấp đường Nhất Đông', type: 'Phản ánh', dateRange: '27/09/2026 - 07/10/2026', endDate: '07/10/2026', status: 'Đang xử lý', image: '', notes: '', isOtherUnit: false },
@@ -476,7 +500,54 @@
         let selectedId = null;
         let currentCategory = 'active';
 
-        // Lấy dữ liệu từ localStorage khi load trang
+        // XỬ LÝ CHUYỂN ĐỔI GIAO DIỆN MOBILE / DESKTOP
+        function toggleViewMode() {
+            const isScreenMobile = window.innerWidth < 768;
+            
+            if (!isManualViewMode) {
+                isManualViewMode = true;
+                manualViewType = isScreenMobile ? 'desktop' : 'mobile';
+            } else {
+                manualViewType = manualViewType === 'mobile' ? 'desktop' : 'mobile';
+            }
+            applyViewMode();
+        }
+
+        function applyViewMode() {
+            const desktopContainer = document.getElementById('desktopContainer');
+            const mobileContainer = document.getElementById('mobileContainer');
+            const viewText = document.getElementById('viewModeText');
+            const mobileIcon = document.getElementById('mobileViewIcon');
+
+            let showMobile = false;
+
+            if (isManualViewMode) {
+                showMobile = manualViewType === 'mobile';
+            } else {
+                showMobile = window.innerWidth < 768;
+            }
+
+            if (showMobile) {
+                desktopContainer.classList.add('hidden');
+                desktopContainer.classList.remove('md:block');
+                mobileContainer.classList.remove('hidden');
+                if (viewText) viewText.innerText = "Xem bản Máy tính";
+                if (mobileIcon) mobileIcon.className = "fa-solid fa-desktop";
+            } else {
+                mobileContainer.classList.add('hidden');
+                desktopContainer.classList.remove('hidden');
+                if (viewText) viewText.innerText = "Xem bản Mobile";
+                if (mobileIcon) mobileIcon.className = "fa-solid fa-mobile-screen";
+            }
+        }
+
+        window.addEventListener('resize', () => {
+            if (!isManualViewMode) {
+                applyViewMode();
+            }
+        });
+
+        // Lấy dữ liệu từ localStorage
         function loadStorageData() {
             const saved = localStorage.getItem(STORAGE_KEY);
             if (saved) {
@@ -491,12 +562,10 @@
             }
         }
 
-        // Lưu dữ liệu vào localStorage
         function saveStorageData() {
             localStorage.setItem(STORAGE_KEY, JSON.stringify(reflectionsList));
         }
 
-        // Reset dữ liệu về ban đầu nếu muốn
         function resetDataToDefault() {
             if (confirm("Bạn có muốn xóa dữ liệu đã sửa và khôi phục lại danh sách mẫu 13 phản ánh gốc không?")) {
                 localStorage.removeItem(STORAGE_KEY);
@@ -510,7 +579,6 @@
             document.getElementById('sidebarBackdrop').classList.toggle('hidden');
         }
 
-        // Switch Category Mode
         function switchCategory(catKey) {
             currentCategory = catKey;
             
@@ -571,16 +639,15 @@
             return { isUrgent: false, type: 'normal', text: 'Còn hạn' };
         }
 
-        // Action: TRANSFER TO OTHER UNIT
         function transferToOtherUnit(id) {
             const record = reflectionsList.find(r => r.id === id);
             if (!record) return;
 
-            if (confirm(`Xác nhận chuyển phản ánh #${id} sang "MỤC CỦA ĐƠN VỊ KHÁC"?\nPhản ánh sẽ giữ nguyên trong mục đơn vị khác kể cả khi bấm F5.`)) {
+            if (confirm(`Xác nhận chuyển phản ánh #${id} sang "MỤC CỦA ĐƠN VỊ KHÁC"?`)) {
                 record.isOtherUnit = true;
                 record.notes = (record.notes ? record.notes + ' | ' : '') + 'Đã chuyển sang đơn vị khác xử lý.';
                 
-                saveStorageData(); // Lưu ngay vào localStorage
+                saveStorageData();
                 renderTable();
                 if (!document.getElementById('editModal').classList.contains('hidden')) {
                     closeEditModal();
@@ -588,7 +655,6 @@
             }
         }
 
-        // Action: BACK TO OUR DEPARTMENT
         function backToOurUnit(id) {
             const record = reflectionsList.find(r => r.id === id);
             if (!record) return;
@@ -597,12 +663,11 @@
                 record.isOtherUnit = false;
                 record.notes = (record.notes ? record.notes + ' | ' : '') + 'Đã thu hồi quay lại bộ phận.';
                 
-                saveStorageData(); // Lưu ngay vào localStorage
+                saveStorageData();
                 renderTable();
             }
         }
 
-        // Modal Add Handlers
         function openAddModal() {
             document.getElementById('addReflectForm').reset();
             uploadedImageBase64 = null;
@@ -645,7 +710,6 @@
             document.getElementById('imageUploadBtn').classList.remove('hidden');
         }
 
-        // Save New Reflection
         function saveNewReflection(e) {
             e.preventDefault();
 
@@ -671,16 +735,16 @@
                 endDate: endDateRaw,
                 status: status,
                 image: uploadedImageBase64 || '',
-                notes: 'Mới khởi tạo bởi Quản lý Trần Anh Khoa',
+                notes: 'Mới khởi tạo bởi Quản lý hệ thống Trần Anh Khoa',
                 isOtherUnit: false
             };
 
             reflectionsList.unshift(newObj);
-            saveStorageData(); // Lưu vĩnh viễn
+            saveStorageData();
 
             closeAddModal();
             switchCategory('active');
-            alert(`Đã thêm thành công phản ánh #${code}!\nĐã lưu vĩnh viễn không lo mất khi F5.`);
+            alert(`Đã thêm thành công phản ánh #${code}!`);
         }
 
         function renderTable() {
@@ -800,7 +864,7 @@
 
                 // Mobile Card
                 const card = document.createElement('div');
-                card.className = `p-3 ${rowBgClass} space-y-2 text-xs`;
+                card.className = `p-3 ${rowBgClass} space-y-2 text-xs border-b border-slate-100`;
                 card.innerHTML = `
                     <div class="flex items-center justify-between">
                         <span class="font-black text-hues-700 text-sm">#${item.id}</span>
@@ -830,7 +894,6 @@
             });
         }
 
-        // Modal Edit Functions
         function openEditModal(id) {
             selectedId = id;
             const record = reflectionsList.find(r => r.id === id);
@@ -888,14 +951,15 @@
                 }
                 record.notes = document.getElementById('editProcessContent').value;
 
-                saveStorageData(); // Lưu ngay vào localStorage
+                saveStorageData();
                 renderTable();
                 closeEditModal();
             }
         }
 
         window.onload = function() {
-            loadStorageData(); // Nạp dữ liệu đã lưu khi F5
+            loadStorageData();
+            applyViewMode();
             renderTable();
         };
     </script>
