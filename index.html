@@ -112,9 +112,7 @@
                     <i class="fa-solid fa-circle-plus text-sm"></i>
                     <span>TẠO PHẢN ÁNH MỚI</span>
                 </button>
-                <button onclick="resetDataToDefault()" class="bg-red-500 hover:bg-red-600 text-white font-bold px-2.5 py-1.5 rounded-xl shadow-md transition text-[11px]" title="Khôi phục lại dữ liệu mẫu gốc">
-                    <i class="fa-solid fa-rotate-right"></i> Reset
-                </button>
+
                 <a href="https://zalo.me/0562242242" target="_blank" rel="noopener noreferrer" 
                    class="bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-bold px-3 py-1.5 rounded-xl shadow-md transition transform active:scale-95 flex items-center gap-2 border border-emerald-300/40">
                     <i class="fa-solid fa-paper-plane text-yellow-200 text-sm"></i>
@@ -124,7 +122,6 @@
 
             <!-- Right User Info -->
             <div class="flex items-center space-x-2 text-xs">
-                <!-- Nút switch view mode cho màn hình cực nhỏ -->
                 <button onclick="toggleViewMode()" class="sm:hidden bg-indigo-600 text-white p-2 rounded-lg text-xs flex items-center justify-center">
                     <i id="mobileViewIcon" class="fa-solid fa-desktop"></i>
                 </button>
@@ -175,7 +172,7 @@
                     <span id="urgentBadgeCount" class="bg-red-600 text-white text-[10px] px-2 py-0.5 rounded-full font-black animate-pulse">0</span>
                 </button>
 
-                <!-- MỤC DÀNH RIÊNG: PHẢN ÁNH CỦA ĐƠN VỊ KHÁC -->
+                <!-- PHẢN ÁNH CỦA ĐƠN VỊ KHÁC -->
                 <button onclick="switchCategory('other_unit')" id="nav-other_unit" class="w-full nav-item flex items-center justify-between px-3 py-2.5 rounded-lg font-medium text-slate-600 hover:bg-slate-100 transition text-left">
                     <div class="flex items-center gap-2.5">
                         <i class="fa-solid fa-share-from-square text-purple-600"></i>
@@ -365,7 +362,6 @@
                     </div>
                 </div>
 
-                <!-- CHỖ TẢI HÌNH ẢNH PHẢN ÁNH -->
                 <div>
                     <label class="block font-bold text-slate-700 mb-1">Hình ảnh phản ánh</label>
                     <div class="border-2 border-dashed border-slate-300 rounded-xl p-3 bg-slate-50 text-center">
@@ -386,7 +382,6 @@
                     </div>
                 </div>
 
-                <!-- Footer Buttons -->
                 <div class="pt-3 border-t border-slate-200 flex items-center justify-end gap-2">
                     <button type="button" onclick="closeAddModal()" class="px-3.5 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold">
                         Hủy
@@ -414,7 +409,6 @@
             </div>
 
             <div class="py-3 md:py-4 overflow-y-auto space-y-3 custom-scrollbar flex-1 text-xs">
-                <!-- Info Display -->
                 <div class="bg-blue-50/80 p-3 rounded-lg border border-blue-100 space-y-1">
                     <div class="flex justify-between items-center">
                         <span class="font-bold text-slate-500">Mã phản ánh:</span>
@@ -451,7 +445,6 @@
                 </div>
             </div>
 
-            <!-- Footer Buttons -->
             <div class="pt-3 border-t border-slate-200 flex flex-wrap items-center justify-between gap-2">
                 <button onclick="executeTransferFromModal()" class="w-full sm:w-auto px-3.5 py-1.5 rounded-lg bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold flex items-center justify-center gap-1.5 shadow transition">
                     <i class="fa-solid fa-share-from-square"></i>
@@ -471,19 +464,17 @@
         </div>
     </div>
 
-    <!-- LOGIC SCRIPT VỚI BROADCAST & LOCALSTORAGE SYNC -->
+    <!-- SCRIPT XỬ LÝ DỮ LIỆU & TỰ ĐỘNG BÁO ĐẾN HẠN -->
     <script>
-        const SYSTEM_CURRENT_DATE = new Date(2026, 8, 28);
+        const SYSTEM_CURRENT_DATE = new Date(2026, 8, 28); // Lấy mốc thời gian hiện tại 28/09/2026
         const STORAGE_KEY = 'HUES_REFLECTIONS_DATA_2026_V2';
         
-        // BroadcastChannel cho phép đồng bộ ngay lập tức giữa các Tab/Cửa sổ
         const syncChannel = 'BroadcastChannel' in window ? new BroadcastChannel('HUES_SYNC_CHANNEL') : null;
 
         let uploadedImageBase64 = null;
         let isManualViewMode = false; 
-        let manualViewType = 'desktop'; // 'mobile' | 'desktop'
+        let manualViewType = 'desktop';
 
-        // Danh sách mặc định
         const defaultReflectionsList = [
             { id: '270926100', name: 'Hát karaoke gây ô nhiễm tiếng ồn tại số 24/56 Hải Triều', time: '27/09/2026 19:50', content: 'Hát karaoke gây ô nhiễm tiếng ồn tại số 24/56 Hải Triều', type: 'Phản ánh', dateRange: '28/09/2026 - 07/10/2026', endDate: '07/10/2026', status: 'Đang xử lý', image: '', notes: '', isOtherUnit: false },
             { id: '270926070', name: 'Kiến nghị nâng cấp đường Nhất Đông', time: '27/09/2026 15:55', content: 'Kiến nghị nâng cấp đường Nhất Đông', type: 'Phản ánh', dateRange: '27/09/2026 - 07/10/2026', endDate: '07/10/2026', status: 'Đang xử lý', image: '', notes: '', isOtherUnit: false },
@@ -504,7 +495,6 @@
         let selectedId = null;
         let currentCategory = 'active';
 
-        // TỰ ĐỘNG LẮNG NGHE ĐỒNG BỘ DỮ LIỆU TỪ CÁC THIẾT BỊ / WINDOWS KHÁC
         if (syncChannel) {
             syncChannel.onmessage = (event) => {
                 if (event.data && event.data.type === 'DATA_UPDATED') {
@@ -527,10 +517,8 @@
             }
         }
 
-        // XỬ LÝ CHUYỂN ĐỔI GIAO DIỆN MOBILE / DESKTOP
         function toggleViewMode() {
             const isScreenMobile = window.innerWidth < 768;
-            
             if (!isManualViewMode) {
                 isManualViewMode = true;
                 manualViewType = isScreenMobile ? 'desktop' : 'mobile';
@@ -547,7 +535,6 @@
             const mobileIcon = document.getElementById('mobileViewIcon');
 
             let showMobile = false;
-
             if (isManualViewMode) {
                 showMobile = manualViewType === 'mobile';
             } else {
@@ -574,7 +561,6 @@
             }
         });
 
-        // Lấy dữ liệu từ localStorage
         function loadStorageData() {
             const saved = localStorage.getItem(STORAGE_KEY);
             if (saved) {
@@ -592,15 +578,6 @@
         function saveStorageData() {
             localStorage.setItem(STORAGE_KEY, JSON.stringify(reflectionsList));
             notifyOtherTabs();
-        }
-
-        function resetDataToDefault() {
-            if (confirm("Bạn có muốn xóa dữ liệu đã sửa và khôi phục lại danh sách mẫu 13 phản ánh gốc không?")) {
-                localStorage.removeItem(STORAGE_KEY);
-                loadStorageData();
-                renderTable();
-                notifyOtherTabs();
-            }
         }
 
         function toggleSidebar() {
@@ -641,6 +618,7 @@
             switchCategory(val);
         }
 
+        // TỰ ĐỘNG KIỂM TRA HẠN ĐỂ NHẢY BÁO ĐẾN HẠN / QUÁ HẠN
         function checkDeadlineStatus(endDateStr, status) {
             if (status === 'Hoàn thành') return { isUrgent: false, type: 'completed', text: 'Hoàn thành' };
 
