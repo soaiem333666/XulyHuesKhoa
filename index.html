@@ -136,7 +136,7 @@
                 <div id="authorNavInfo" class="bg-blue-950/60 backdrop-blur-md px-2.5 py-1.5 rounded-xl border border-white/20 text-blue-100 flex items-center gap-2 shadow-inner">
                     <span id="displayUserName" class="font-bold text-white flex items-center gap-1 text-[11px] md:text-xs">
                         <i class="fa-solid fa-user-shield text-emerald-400"></i>
-                        <span class="hidden md:inline">Quản trị hệ thống:</span> Trần Anh Khoa
+                        <span class="hidden md:inline">Quản lý:</span> Trần Anh Khoa
                     </span>
                 </div>
             </div>
@@ -197,7 +197,7 @@
             <div class="p-2 border-t border-slate-100">
                 <button onclick="openAddModal()" class="w-full bg-yellow-400 hover:bg-yellow-500 text-blue-950 font-black py-2 rounded-lg shadow transition text-xs flex items-center justify-center gap-1.5">
                     <i class="fa-solid fa-plus-circle"></i>
-                    <span>Thêm phản ánh mới</span>
+                    <span>THÊM PHẢN ÁNH MỚI</span>
                 </button>
             </div>
         </aside>
@@ -303,7 +303,7 @@
     <footer class="bg-slate-900 text-slate-300 py-2 px-4 text-center text-xs flex-none border-t border-slate-800 shadow-lg z-20">
         <div class="flex items-center justify-center gap-2">
             <i class="fa-solid fa-code text-yellow-400"></i>
-            <span>Nhà phát hành<strong>Trần Anh Khoa</strong> | Hệ Thống Xử Lý Phản Ánh Hues An Cựu</span>
+            <span>Nhà phát hành 2026 <strong>Trần Anh Khoa</strong> | Hệ Thống Xử Lý Phản Ánh Hues Phường An Cựu</span>
         </div>
     </footer>
 
@@ -313,7 +313,7 @@
             <div class="flex items-center justify-between pb-3 border-b border-slate-200">
                 <h3 class="text-xs md:text-sm font-extrabold text-blue-900 flex items-center gap-2 uppercase">
                     <i class="fa-solid fa-circle-plus text-yellow-500 text-base"></i>
-                    <span>Thêm Phản Ánh Mới</span>
+                    <span>Thêm Phản Ánh Mới (Nhảy Lên Bộ Phận)</span>
                 </h3>
                 <button onclick="closeAddModal()" class="text-slate-400 hover:text-slate-600 p-1">
                     <i class="fa-solid fa-xmark text-lg"></i>
@@ -393,7 +393,7 @@
                     </button>
                     <button type="submit" class="px-5 py-2 rounded-lg bg-hues-600 hover:bg-hues-700 text-white font-extrabold flex items-center gap-1.5 shadow-md transition">
                         <i class="fa-solid fa-paper-plane"></i>
-                        <span>Lưu</span>
+                        <span>Lưu & Nhảy Lên Bộ Phận</span>
                     </button>
                 </div>
             </form>
@@ -471,10 +471,14 @@
         </div>
     </div>
 
-    <!-- LOGIC SCRIPT VỚI LOCALSTORAGE & TOGGLE DEVICE VIEW -->
+    <!-- LOGIC SCRIPT VỚI BROADCAST & LOCALSTORAGE SYNC -->
     <script>
         const SYSTEM_CURRENT_DATE = new Date(2026, 8, 28);
         const STORAGE_KEY = 'HUES_REFLECTIONS_DATA_2026_V2';
+        
+        // BroadcastChannel cho phép đồng bộ ngay lập tức giữa các Tab/Cửa sổ
+        const syncChannel = 'BroadcastChannel' in window ? new BroadcastChannel('HUES_SYNC_CHANNEL') : null;
+
         let uploadedImageBase64 = null;
         let isManualViewMode = false; 
         let manualViewType = 'desktop'; // 'mobile' | 'desktop'
@@ -499,6 +503,29 @@
         let reflectionsList = [];
         let selectedId = null;
         let currentCategory = 'active';
+
+        // TỰ ĐỘNG LẮNG NGHE ĐỒNG BỘ DỮ LIỆU TỪ CÁC THIẾT BỊ / WINDOWS KHÁC
+        if (syncChannel) {
+            syncChannel.onmessage = (event) => {
+                if (event.data && event.data.type === 'DATA_UPDATED') {
+                    loadStorageData();
+                    renderTable();
+                }
+            };
+        }
+
+        window.addEventListener('storage', (e) => {
+            if (e.key === STORAGE_KEY) {
+                loadStorageData();
+                renderTable();
+            }
+        });
+
+        function notifyOtherTabs() {
+            if (syncChannel) {
+                syncChannel.postMessage({ type: 'DATA_UPDATED', timestamp: Date.now() });
+            }
+        }
 
         // XỬ LÝ CHUYỂN ĐỔI GIAO DIỆN MOBILE / DESKTOP
         function toggleViewMode() {
@@ -564,6 +591,7 @@
 
         function saveStorageData() {
             localStorage.setItem(STORAGE_KEY, JSON.stringify(reflectionsList));
+            notifyOtherTabs();
         }
 
         function resetDataToDefault() {
@@ -571,6 +599,7 @@
                 localStorage.removeItem(STORAGE_KEY);
                 loadStorageData();
                 renderTable();
+                notifyOtherTabs();
             }
         }
 
@@ -735,7 +764,7 @@
                 endDate: endDateRaw,
                 status: status,
                 image: uploadedImageBase64 || '',
-                notes: 'Mới khởi tạo bởi Quản lý hệ thống Trần Anh Khoa',
+                notes: 'Mới khởi tạo bởi Quản lý Trần Anh Khoa',
                 isOtherUnit: false
             };
 
